@@ -52,19 +52,19 @@
 
 
 //ECERCÍCIO 3 - ESCRITA DE CÓDIGO
-// let listaDeTarefas = []
+let listaDeTarefas = []
 
-// const tarefa1 = prompt('Diga 3 tarefas que você precisa realizar hoje. A primeira aqui.')
-// const tarefa2 = prompt('A segunda aqui.')
-// const tarefa3 = prompt('E a terceira aqui.')
+const tarefa1 = prompt('Diga 3 tarefas que você precisa realizar hoje. A primeira aqui.')
+const tarefa2 = prompt('A segunda aqui.')
+const tarefa3 = prompt('E a terceira aqui.')
 
-// listaDeTarefas.push(tarefa1, tarefa2, tarefa3)
-// console.log(listaDeTarefas)
+listaDeTarefas.push(tarefa1, tarefa2, tarefa3)
+console.log(listaDeTarefas)
 
-// const tarefaRealizada = prompt('Já realizou alguma delas? 1, 2 ou 3?')-1
-// listaDeTarefas.splice(tarefaRealizada, 1)
+const tarefaRealizada = Number(prompt('Já realizou alguma delas? 1, 2 ou 3?'))-1
+listaDeTarefas.splice([tarefaRealizada], 1)
 
-// console.log(listaDeTarefas)
+console.log(listaDeTarefas)
 
 
 //------------desafio 1------------
@@ -74,6 +74,6 @@
 
 
 //------------desafio 2------------
-let frutas = ["Banana", "Morango", "Abacaxi", "Laranja", "Ameixa"]
-console.log(frutas)
-console.log('Tamanho do array:',frutas.length, '- Índice "Abacaxi":',frutas.indexOf('Abacaxi'))
+// let frutas = ["Banana", "Morango", "Abacaxi", "Laranja", "Ameixa"]
+// console.log(frutas)
+// console.log('Tamanho do array:',frutas.length, '- Índice "Abacaxi":',frutas.indexOf('Abacaxi'))
