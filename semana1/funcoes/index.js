@@ -15,47 +15,47 @@
 //    iii. true
 
 
-// 1.
-// a)
-const imprimeMensagem = () => {
-  console.log('Eu sou Cleiton, tenho 23 anos, moro em Belo Horizonte e sou estudante')
-}
-imprimeMensagem()
+// // 1.
+// // a)
+// const imprimeMensagem = () => {
+//   console.log('Eu sou Cleiton, tenho 23 anos, moro em Belo Horizonte e sou estudante')
+// }
+// imprimeMensagem()
 
-// b)
-const informacoes = (nome, idade, cidade, profissao) => {
-  console.log(`Eu sou ${nome}, tenho ${idade} anos, moro em ${cidade} e sou ${profissao}.`)
-}
-informacoes('Cleiton', 23, 'Belo Horizonte', 'estudante')
-
-
-// 2.
-// a)
-const somaNumeros = (num1, num2) => {
-  return num1 + num2
-}
-console.log(somaNumeros(3, 5))
+// // b)
+// const informacoes = (nome, idade, cidade, profissao) => {
+//   console.log(`Eu sou ${nome}, tenho ${idade} anos, moro em ${cidade} e sou ${profissao}.`)
+// }
+// informacoes('Cleiton', 23, 'Belo Horizonte', 'estudante')
 
 
-// b)
-const verificaMaiorNumero = function (num1, num2) {
-  return num1 > num2
-}
-console.log(verificaMaiorNumero(6, 5))
+// // 2.
+// // a)
+// const somaNumeros = (num1, num2) => {
+//   return num1 + num2
+// }
+// console.log(somaNumeros(3, 5))
 
 
-// c)
-function verificaPar(num) {
-  return num % 2 === 0
-}
-console.log(verificaPar(5))
+// // b)
+// const verificaMaiorNumero = function (num1, num2) {
+//   return num1 > num2
+// }
+// console.log(verificaMaiorNumero(6, 5))
 
 
-// d)
-const toUpperAndLength = (mensagem) => {
-  console.log(mensagem.toUpperCase(), mensagem.length)
-}
-toUpperAndLength('bananinha é top')
+// // c)
+// function verificaPar(num) {
+//   return num % 2 === 0
+// }
+// console.log(verificaPar(5))
+
+
+// // d)
+// const toUpperAndLength = (mensagem) => {
+//   console.log(mensagem.toUpperCase(), mensagem.length)
+// }
+// toUpperAndLength('bananinha é top')
 
 
 
@@ -82,3 +82,15 @@ console.log(`${numeros[0]} + ${numeros[1]} = `, soma(numeros[0], numeros[1]))
 console.log(`${numeros[0]} - ${numeros[1]} = `, subtracao(numeros[0], numeros[1]))
 console.log(`${numeros[0]} * ${numeros[1]} = `, multiplicacao(numeros[0], numeros[1]))
 console.log(`${numeros[0]} / ${numeros[1]} = `, divisao(numeros[0], numeros[1]))
+
+
+//desafio
+
+function calculaTeoremaPitagoras(cat1, cat2) {
+  
+  return Math.sqrt((cat1*cat1)+(cat2*cat2))
+}
+
+const hipotenusa = calculaTeoremaPitagoras(9,12)
+
+console.log(hipotenusa)
