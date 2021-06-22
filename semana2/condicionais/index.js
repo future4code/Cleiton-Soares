@@ -227,8 +227,8 @@ Etapa do jogo:  ${etapaJogo}
 Categoria: ${categoria}
 Quantidade de Ingressos: ${quantidade} ingressos
 ---Valores--- 
-Valor do ingresso:  U$ ${(verificaPrecoIngresso() * 4.1).toFixed(2)}
-Valor total:  U$ ${((verificaPrecoIngresso() * quantidade) * 4.1).toFixed(2)}`)
+Valor do ingresso:  U$ ${(verificaPrecoIngresso() / 4.1).toFixed(2)}
+Valor total:  U$ ${((verificaPrecoIngresso() * quantidade) / 4.1).toFixed(2)}`)
   }
 }
 
