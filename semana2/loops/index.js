@@ -43,7 +43,7 @@
 
 // 2.
 
-const arrOriginal = [1500, 4, 6, 8, 9, 100, 10, 55, 57]
+// const arrOriginal = [1500, 4, 6, 8, 9, 100, 10, 55, 57]
 
 // // a)
 // const imprimeElementosArray = (array) => {
@@ -111,29 +111,64 @@ const arrOriginal = [1500, 4, 6, 8, 9, 100, 10, 55, 57]
 
 
 //Desafio
+// 1.
+// const numeroPensado = Number(prompt('Pense em um número!'))
 
-const numeroPensado = Number(prompt('Vamos jogar!'))
-const numeroChute = Number(prompt('Tente advinhar o número pensado'))
+// let acertou = false
+// let tentativas = 1
+
+// while (!acertou) {
+//   const numeroChute = Number(prompt('Tente advinhar o número pensado'))
+//   if (numeroChute == numeroPensado) {
+//     acertou = true
+//     console.log(`O chute foi ${numeroChute}`);
+//     console.log(`Parabéns, você acertou, o numero pensado era ${numeroPensado}`)
+//     console.log(`o numero de tentativas foi ${tentativas}`)
+//     console.log('-------------------------')
+//   } else if (numeroChute < numeroPensado) {
+//     console.log(`O chute foi ${numeroChute}`);
+//     console.log('Errrrrrrrou, é maior')
+//     console.log(`o numero de tentativas foi ${tentativas}`)
+//     console.log('-------------------------')
+//     tentativas++
+//   } else if (numeroChute > numeroPensado) {
+//     console.log(`O chute foi ${numeroChute}`);
+//     console.log('Errrrrrrrou, é menor')
+//     console.log(`o numero de tentativas foi ${tentativas}`)
+//     console.log('-------------------------')
+//     tentativas++
+//   }
+// }
 
 
-if (numeroChute == numeroPensado) {
-  console.log('Acertou!!');
-} else {
-  while (numeroChute != numeroPensado) {
-    if (numeroChute > numeroPensado) {
-      console.log('Errrrrrrrou, é menor');
-      console.log(`O número chutado foi: ${numeroChute}`);
-      numeroChute = Number(prompt('Tente advinhar o número pensado'))
-      break
-    } else if (numeroChute < numeroPensado) {
-      console.log('Errrrrrrrou, é maior');
-      console.log(`O número chutado foi: ${numeroChute}`);
-      numeroChute = Number(prompt('Tente advinhar o número pensado'))
-      break
-    }
-    numeroChute = Number(prompt('Tente advinhar o número pensado'))
+// 2.
+const numeroPensado = Math.round(Math.random() * 100)
+// console.log(numeroPensado)
 
+let acertou = false
+let tentativas = 1
 
+while (!acertou) {
+  const numeroChute = Number(prompt('Tente advinhar o número pensado'))
+  if (numeroChute == numeroPensado) {
+    acertou = true
+    console.log(`O chute foi ${numeroChute}`);
+    console.log(`Parabéns, você acertou, o numero pensado era ${numeroPensado}`)
+    console.log(`o numero de tentativas foi ${tentativas}`)
+    console.log('-------------------------')
+  } else if (numeroChute < numeroPensado) {
+    console.log(`O chute foi ${numeroChute}`);
+    console.log('Errrrrrrrou, é maior')
+    console.log(`o numero de tentativas foi ${tentativas}`)
+    console.log('-------------------------')
+    tentativas++
+  } else if (numeroChute > numeroPensado) {
+    console.log(`O chute foi ${numeroChute}`);
+    console.log('Errrrrrrrou, é menor')
+    console.log(`o numero de tentativas foi ${tentativas}`)
+    console.log('-------------------------')
+    tentativas++
   }
 }
 
+//foi facil pra mim porque eu ja conhecinha o método de Math.random e o Math.round. Mas pude ver na documentação algumas formas diferentes de executar e também novas possibilidades de abrangência de números.
