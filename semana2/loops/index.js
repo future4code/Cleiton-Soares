@@ -43,8 +43,7 @@
 
 // 2.
 
-const arrOriginal = [1, 2, 4, 6, 8, 9, 10, 55, 57]
-
+const arrOriginal = [1500, 4, 6, 8, 9, 100, 10, 55, 57]
 
 // // a)
 // const imprimeElementosArray = (array) => {
@@ -87,20 +86,54 @@ const arrOriginal = [1, 2, 4, 6, 8, 9, 10, 55, 57]
 
 // console.log(retornaArrayString(arrOriginal))
 
-// e)
-const imprimeMaiorEMenor = (array) => {
-  let valorMaximo = 0;
-  let valorMinimo;
 
-  let numeroAtual;
-  for (const i of array) {
-    numeroAtual = i
+// // e)
+// const imprimeMaiorEMenor = (array) => {
 
-    if (numeroAtual < i) {
-      valorMinimo = i
+//   let maiorElemento = 0
+//   for (const elemento of array) {
+//     if (elemento > maiorElemento) {
+//       maiorElemento = elemento
+//     }
+//   }
+
+//   let menorElemento = maiorElemento
+//   for (const elemento of array) {
+//     if (elemento < menorElemento) {
+//       menorElemento = elemento
+//     }
+//   }
+
+//   console.log(maiorElemento, menorElemento)
+// }
+
+// imprimeMaiorEMenor(arrOriginal)
+
+
+//Desafio
+
+const numeroPensado = Number(prompt('Vamos jogar!'))
+const numeroChute = Number(prompt('Tente advinhar o número pensado'))
+
+
+if (numeroChute == numeroPensado) {
+  console.log('Acertou!!');
+} else {
+  while (numeroChute != numeroPensado) {
+    if (numeroChute > numeroPensado) {
+      console.log('Errrrrrrrou, é menor');
+      console.log(`O número chutado foi: ${numeroChute}`);
+      numeroChute = Number(prompt('Tente advinhar o número pensado'))
+      break
+    } else if (numeroChute < numeroPensado) {
+      console.log('Errrrrrrrou, é maior');
+      console.log(`O número chutado foi: ${numeroChute}`);
+      numeroChute = Number(prompt('Tente advinhar o número pensado'))
+      break
     }
+    numeroChute = Number(prompt('Tente advinhar o número pensado'))
+
+
   }
-  console.log(valorMinimo)
 }
 
-imprimeMaiorEMenor(arrOriginal)
