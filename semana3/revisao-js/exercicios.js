@@ -46,6 +46,8 @@ function retornaQuantidadeElementos(array) {
 
 // EXERCÍCIO 06
 function retornaExpressoesBooleanas() {
+  let arrayRespostas = [false, false, true, true, true]
+  return arrayRespostas
 
 }
 
