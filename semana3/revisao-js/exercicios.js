@@ -10,7 +10,7 @@ function retornaNumerosParesElevadosADois(array) {
   const novoArray = []
   for (const i of array) {
     if (i % 2 === 0) {
-      novoArray.push( i ** 2 )
+      novoArray.push(i ** 2)
     }
   }
   return novoArray
@@ -30,7 +30,7 @@ function retornaNumerosPares(array) {
 
 // EXERCÍCIO 04
 function retornaMaiorNumero(array) {
-  maiorNumero = 0
+  let maiorNumero = 0
   for (const i of array) {
     if (i > maiorNumero) {
       maiorNumero = i
@@ -53,25 +53,69 @@ function retornaExpressoesBooleanas() {
 
 // EXERCÍCIO 07
 function retornaNNumerosPares(n) {
+  let arr = []
+
+  for (let i = 0; i < n; i++) {
+
+    if (arr[0] === []) {
+      arr.push(0)
+    }
+
+    if (arr[arr.length - 1] % 2 === 0) {
+      arr.push((arr.length - 1) + 2)
+    } else {
+      arr.push((arr.length - 1) + 1)
+
+    }
+
+  }
+
+  return arr
 
 }
 
 // EXERCÍCIO 08
 function checaTriangulo(a, b, c) {
-  // return 'Escaleno'
-  // return 'Equilátero'
-  // return 'Isósceles'
+  if (a == b && a == c) {
+    return 'Equilátero'
+  } else if (a != b && a != c && b != c) {
+    return 'Escaleno'
+  } else {
+    return 'Isósceles'
+  }
 }
 
 // EXERCÍCIO 09
 function comparaDoisNumeros(num1, num2) {
-  // Formato do objeto a ser retornado:
-  // {
-  //   maiorNumero: X,
-  //   maiorDivisivelPorMenor: Y,
-  //   diferenca: Z
-  // }
+  let menor
+
+  let x
+  let y
+  let z
+  
+  if (num1 > num2) {
+    x = num1
+    menor = num2
+  } else {
+    x = num2
+    menor = num1
+  }
+
+  y = x % menor === 0
+
+  z = x - menor
+
+  let objeto = {
+    maiorNumero: x,
+    maiorDivisivelPorMenor: y,
+    diferenca: z
+  }
+
+  return objeto
+
 }
+
+console.log(comparaDoisNumeros(10, 5));
 
 // EXERCÍCIO 10
 function segundoMaiorEMenor(array) {
