@@ -1,8 +1,10 @@
 // EXERCÍCIO 01
 function inverteArray(array) {
-  // for (const elemento of array) {
-  //   let arrayInvertido = 
-  // }
+  const arr = []
+  for (let i = array.length - 1; i >= 0 ; i--) {
+    arr.push(array[i])
+  }
+  return arr
 }
 
 // EXERCÍCIO 02
@@ -87,31 +89,31 @@ function checaTriangulo(a, b, c) {
 
 // EXERCÍCIO 09
 function comparaDoisNumeros(num1, num2) {
-  let menor
+  // let menor
 
-  let x
-  let y
-  let z
+  // let x
+  // let y
+  // let z
   
-  if (num1 > num2) {
-    x = num1
-    menor = num2
-  } else {
-    x = num2
-    menor = num1
-  }
+  // if (num1 > num2) {
+  //   x = num1
+  //   menor = num2
+  // } else {
+  //   x = num2
+  //   menor = num1
+  // }
 
-  y = x % menor === 0
+  // y = x % menor === 0
 
-  z = x - menor
+  // z = x - menor
 
-  let objeto = {
-    maiorNumero: x,
-    maiorDivisivelPorMenor: y,
-    diferenca: z
-  }
+  // let objeto = {
+  //   maiorNumero: x,
+  //   maiorDivisivelPorMenor: y,
+  //   diferenca: z
+  // }
 
-  return objeto
+  // return objeto
 
 }
 
