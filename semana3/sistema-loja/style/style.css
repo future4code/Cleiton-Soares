@@ -1,0 +1,93 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+.header {
+  text-align: center;
+  background-color: bisque;
+  padding: 15px;
+}
+
+.header h1 {
+  color: brown;
+}
+
+.nav {
+  text-align: center;
+  margin: 30px;
+}
+
+.nav a {
+  text-align: center;
+  width: 100px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: brown;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.sobre {
+  padding: 0 50px;
+}
+
+.redes {
+  width: 100vw;
+  text-align: center;
+  padding: 20px;
+  background-color: bisque;
+  position: fixed;
+  bottom: 0;
+}
+
+.redes img {
+  width: 50px;
+  margin: 20px 10px 10px 0px;
+}
+
+
+
+
+.tabela{
+  text-align: center;
+}
+
+.workers {
+  border: 1px solid black;
+  display: inline-block;
+  padding: 20px 50px;
+  margin: 30px;
+  border-radius: 15px;
+}
+
+.workers tr {
+  text-align: center;
+  background-color: white;
+  color: black;
+  height: 50px;
+  
+}
+
+.tab-header{
+  width: 150px;
+  border-radius: 10px;
+  background-color: brown;
+  color: white;
+}
+
+.workers tr td{
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+
+
+.titulo-sessao {
+  text-align: center;
+}
