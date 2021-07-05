@@ -110,10 +110,12 @@
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   line-height: 30px;
-
+  color: #34495E;
+  
 }
 
 .text h2{
+  color: #34495E;
   font-family: 'Poppins', sans-serif;
   font-weight: 500
 }
@@ -124,7 +126,7 @@
 
 .container{
   background-color: #42b983;
-  padding: 45px;
+  padding: 45px 10%;
 }
 
 .container h3{
@@ -132,6 +134,7 @@
   font-weight: 500;
   color: #34495E;
   font-size: 23px;
+  text-align: center;
   
 }
 
@@ -140,4 +143,45 @@
   list-style: none;
   font-family: 'Dosis', sans-serif;
   font-size: 18px;
+  text-align: center;
+}
+
+.container span{
+  color:white;
+  list-style: none;
+  font-family: 'Dosis', sans-serif;
+  font-size: 18px;
+  
+}
+
+.subtitulo{
+  margin-top: 25px;
+  color: #34495E;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+
+/* Competencias e habilidades */
+
+.competencias{
+  padding: 45px 10%;
+
+}
+
+.competencias h3{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: #34495E;
+  font-size: 23px;
+  text-align: center;
+  
+}
+
+.competencias ul{
+  margin-top: 25px;
+  font-family: 'Dosis', sans-serif;
+  font-size: 18px;
+
 }
