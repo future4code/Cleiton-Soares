@@ -35,8 +35,16 @@ body {
   border-radius: 15px;
 }
 
+.header input:focus {
+  outline: 0;
+}
+
+
 main {
   overflow: auto;
+  display: flex;
+  justify-content: center;
+
 }
 
 .main {
@@ -47,6 +55,8 @@ main {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   margin-bottom: 20px;
+  max-width: 1080px;
+
 }
 
 .video {
@@ -92,6 +102,7 @@ main {
   width: 80vw;
   box-shadow: 2px 2px 5px lightgray;
   border-radius: 10px;
+  max-width: 1080px;
 }
 
 .main-player h1 {
