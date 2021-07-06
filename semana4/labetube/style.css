@@ -1,19 +1,19 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
+body {
   height: 100vh;
   display: grid;
   grid-auto-columns: 1fr;
   grid-template-rows: 80px 1fr 60px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
-.header{
-  background-color: #09142B;
+.header {
+  background-color: #09142b;
   display: flex;
   height: 100%;
   padding: 0 3rem;
@@ -21,35 +21,35 @@ body{
   justify-content: space-between;
 }
 
-.header h1{
+.header h1 {
   color: white;
 }
 
-.header h1 a{
+.header h1 a {
   text-decoration: none;
   color: white;
 }
 
-.header input{
+.header input {
   padding: 10px;
   border-radius: 15px;
 }
 
-main{
+main {
   overflow: auto;
-
 }
 
-.main{
+.main {
   padding: 20px;
   height: 100%;
   display: grid;
   gap: 15px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
+  margin-bottom: 20px;
 }
 
-.video{
+.video {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
@@ -61,23 +61,46 @@ main{
   margin-bottom: ;
 }
 
-.thumb{
+.thumb {
   width: 100%;
-  border-radius: 15px 15px 0 0 ;
+  border-radius: 15px 15px 0 0;
 }
 
-.video p{
+.video p {
   margin: 15px 0;
 }
 
-.footer{
-  background-color: #09142B;
+.footer {
+  background-color: #09142b;
   display: flex;
   padding: 20px;
   align-items: center;
   justify-content: center;
 }
 
-.footer p{
+.footer p {
   color: white;
+}
+
+.player {
+  display: flex;
+  justify-content: center;
+}
+
+.player video {
+  margin: 30px 0;
+  width: 80vw;
+  box-shadow: 2px 2px 5px lightgray;
+  border-radius: 10px;
+}
+
+.main-player h1 {
+  margin-top: 30px;
+}
+
+.main-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
 }
