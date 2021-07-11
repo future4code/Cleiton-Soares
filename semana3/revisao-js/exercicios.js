@@ -1,7 +1,7 @@
 // EXERCÍCIO 01
 function inverteArray(array) {
   const arr = []
-  for (let i = array.length - 1; i >= 0 ; i--) {
+  for (let i = array.length - 1; i >= 0; i--) {
     arr.push(array[i])
   }
   return arr
@@ -55,25 +55,30 @@ function retornaExpressoesBooleanas() {
 
 // EXERCÍCIO 07
 function retornaNNumerosPares(n) {
-  let arr = []
+  let arrPares = []
 
-  for (let i = 0; i < n; i++) {
-
-    if (arr[0] === []) {
-      arr.push(0)
+  for (let i = 0; arrPares.length < n; i++) {
+    if (i % 2 === 0) {
+      arrPares.push(i)
     }
-
-    if (arr[arr.length - 1] % 2 === 0) {
-      arr.push((arr.length - 1) + 2)
-    } else {
-      arr.push((arr.length - 1) + 1)
-
-    }
-
   }
 
-  return arr
 
+  // let arrPares = []
+  // let contador = 0
+  // let numeroPar = 0
+  // while (n > contador) {
+  //   if (numeroPar == 0) {
+  //     arrPares.push(numeroPar)
+  //     numeroPar += 2
+  //     contador++
+  //   } else {
+  //     arrPares.push(numeroPar)
+  //     numeroPar += 2
+  //     contador++
+  //   }
+  // }
+  return arrPares
 }
 
 // EXERCÍCIO 08
@@ -89,38 +94,61 @@ function checaTriangulo(a, b, c) {
 
 // EXERCÍCIO 09
 function comparaDoisNumeros(num1, num2) {
-  // let menor
+  let maior
+  let menor
 
-  // let x
-  // let y
-  // let z
-  
-  // if (num1 > num2) {
-  //   x = num1
-  //   menor = num2
-  // } else {
-  //   x = num2
-  //   menor = num1
-  // }
+  if (num1 > num2) {
+    maior = num1
+    menor = num2
+  } else {
+    maior = num2
+    menor = num1
+  }
 
-  // y = x % menor === 0
+  let divisivel = maior % menor === 0
+  let diferenca = maior - menor
 
-  // z = x - menor
-
-  // let objeto = {
-  //   maiorNumero: x,
-  //   maiorDivisivelPorMenor: y,
-  //   diferenca: z
-  // }
-
-  // return objeto
+  return {
+    maiorNumero: maior,
+    maiorDivisivelPorMenor: divisivel,
+    diferenca: diferenca
+  }
 
 }
 
-console.log(comparaDoisNumeros(10, 5));
 
 // EXERCÍCIO 10
 function segundoMaiorEMenor(array) {
+
+  let maiorNumero = -Infinity
+  let segundoMaior = -Infinity
+
+
+  for (const i of array) {
+    if (i > maiorNumero) {
+      segundoMaior = maiorNumero
+      maiorNumero = i
+    }
+
+    if (i > segundoMaior && i < maiorNumero) {
+      segundoMaior = i
+    }
+  }
+
+  let menorNumero = Infinity
+  let segundoMenor = Infinity
+
+  for (const i of array) {
+    if (i < menorNumero) {
+      segundoMenor = menorNumero
+      menorNumero = i
+    }
+    if (i < segundoMenor && i > menorNumero) {
+      segundoMenor = i
+    }
+  }
+
+  return [segundoMaior, segundoMenor]
 
 }
 
