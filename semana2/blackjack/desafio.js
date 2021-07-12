@@ -11,12 +11,13 @@
  * 
  */
 
-const geraCartasJogador = () => {
+const geraDuasCartas = () => {
   cartas = [comprarCarta(), comprarCarta()];
   let achou = false;
 
+
   while (!achou) {
-    if (cartas === "[{valor: 11}, {valor: 11}]") {
+    if (cartas[0].valor === 11 && cartas[1].valor === 11) {
       cartas = [comprarCarta(), comprarCarta()];
     } else {
       achou = true;
@@ -25,36 +26,110 @@ const geraCartasJogador = () => {
   }
 };
 
-const cartasJogador = geraCartasJogador();
-const pontosJogador = cartasJogador[0].valor + cartasJogador[1].valor;
+const retornaTextoArray = (array) => {
+  let contador = 0
+  let frase = ""
 
-const geraCartasPc = () => {
-  cartas = [comprarCarta(), comprarCarta()];
-  let achou = false;
-
-  while (!achou) {
-    if (cartas === "[{valor: 11}, {valor: 11}]") {
-      cartas = [comprarCarta(), comprarCarta()];
+  while (contador != array.length) {
+    if (contador === array.length - 1) {
+      frase += array[contador].texto
+      contador++
     } else {
-      achou = true;
-      return cartas;
+      frase += array[contador].texto + " "
+      contador++
     }
   }
-};
+  return frase
+}
 
-const cartasPc = [comprarCarta(), comprarCarta()];
-const pontosPc = cartasPc[0].valor + cartasPc[1].valor;
+const somaValoresArray = (array) => {
+  let contador = array.length
+  let pontos = 0
 
-if (
-  confirm(`Suas cartas são ${cartasJogador[0].texto} ${cartasJogador[1].texto}. A carta revelada do computador é ${cartasPc[0].texto}
-Deseja comprar mais uma carta?`)
-) {
-  cartasJogador.push(comprarCarta());
-  pontosJogador =
-    cartasJogador[0].valor + cartasJogador[1].valor + cartasJogador[2].valor;
-  if (
-    confirm(`Suas cartas são ${cartasJogador[0].texto} ${cartasJogador[1].texto} ${cartasJogador[2].texto}. A carta revelada do computador é ${cartasPc[0].texto}
-  Deseja comprar mais uma carta?`)
-  ) {
+  while (contador != 0) {
+    pontos += array[contador - 1].valor
+    contador--
+  }
+  return pontos
+}
+
+
+const retornaTextoConfirmacao = () => {
+  return `Suas cartas são ${retornaTextoArray(cartasJogador)}. A carta revelada do computador é ${cartasPc[0].texto}
+Deseja comprar mais uma carta?`
+}
+
+const retornaResultado = () => {
+  if (pontosJogador > pontosPc && pontosJogador <= 21) {
+    return `Suas cartas são ${retornaTextoArray(cartasJogador)}. Sua pontuação é ${pontosJogador}
+As cartas do computador são ${retornaTextoArray(cartasPc)}. A pontuação do computador é ${pontosPc}
+O usuário ganhou`
+  } else if (pontosJogador === pontosPc) {
+    return `Suas cartas são ${retornaTextoArray(cartasJogador)}. Sua pontuação é ${pontosJogador}
+As cartas do computador são ${retornaTextoArray(cartasPc)}. A pontuação do computador é ${pontosPc}
+Foi empate`
+  } else {
+    return `Suas cartas são ${retornaTextoArray(cartasJogador)}. Sua pontuação é ${pontosJogador}
+As cartas do computador são ${retornaTextoArray(cartasPc)}. A pontuação do computador é ${pontosPc}
+O computador ganhou`
+  }
+}
+
+
+const cartasJogador = geraDuasCartas();
+let pontosJogador = somaValoresArray(cartasJogador)
+
+const cartasPc = geraDuasCartas();
+let pontosPc = somaValoresArray(cartasPc)
+
+
+
+if (confirm(retornaTextoConfirmacao())) {
+  cartasJogador.push(comprarCarta())
+  pontosJogador = somaValoresArray(cartasJogador)
+
+  if (pontosJogador > 21) {
+    alert(retornaResultado())
+  }
+
+  while (pontosJogador < 21) {
+    if (confirm(retornaTextoConfirmacao())) {
+      cartasJogador.push(comprarCarta())
+      pontosJogador = somaValoresArray(cartasJogador)
+
+      if (pontosJogador > 21) {
+        alert(retornaResultado())
+        break
+      }
+    } else{
+      if (pontosJogador < 21) {
+        while ((pontosPc < pontosJogador) && pontosPc < 21) {
+          cartasPc.push(comprarCarta())
+          pontosPc = somaValoresArray(cartasPc)
+          if (pontosPc >= pontosJogador) {
+            alert(retornaResultado())
+            break
+          }
+        }
+      }
+      break
+    }
+  }
+
+
+} else {
+  if (pontosJogador < 21) {
+    if ((pontosPc > pontosJogador) && pontosPc <= 21) {
+      alert(retornaResultado())
+    }
+    while ((pontosPc < pontosJogador) && pontosPc < 21) {
+      cartasPc.push(comprarCarta())
+      pontosPc = somaValoresArray(cartasPc)
+
+      if (pontosPc >= pontosJogador) {
+        alert(retornaResultado())
+        break
+      }
+    }
   }
 }
