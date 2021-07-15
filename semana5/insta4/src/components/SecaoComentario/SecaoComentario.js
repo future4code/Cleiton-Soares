@@ -22,6 +22,7 @@ export class SecaoComentario extends Component {
       valorInputComentario: event.target.value
     })
     console.log(event.target.value);
+
 	}
 
 	render() {
