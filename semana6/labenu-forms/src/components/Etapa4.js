@@ -15,6 +15,7 @@ export const GeneralContainer = styled.div`
 `
 
 export default class Etapa4 extends Component {
+
   render() {
     return (
       <GeneralContainer>

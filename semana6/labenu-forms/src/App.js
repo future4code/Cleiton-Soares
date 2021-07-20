@@ -5,6 +5,8 @@ import Etapa1 from "./components/Etapa1";
 import Etapa2 from "./components/Etapa2";
 import Etapa3 from "./components/Etapa3";
 import Etapa4 from "./components/Etapa4";
+import PerguntaOpcoes from "./components/PerguntaOpcoes"
+
 
 import { GeneralContainer } from "./App.styled";
 
@@ -23,7 +25,6 @@ class App extends React.Component {
         return <Etapa3 />;
       case 4:
         return <Etapa4 />;
-
       default:
         break;
     }
@@ -37,9 +38,7 @@ class App extends React.Component {
     return (
       <GeneralContainer>
         {this.renderizaEtapa()}
-        {this.state.etapa < 4 && (
-          <button onClick={this.trocaEtapa}>Próxima etapa</button>
-        )}
+        {this.state.etapa < 4 && <button onClick={this.trocaEtapa}>Próxima etapa</button>}
       </GeneralContainer>
     );
   }
