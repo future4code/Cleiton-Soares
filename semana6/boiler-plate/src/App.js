@@ -20,7 +20,7 @@ const ContainerTarefa = styled.div`
   /* justify-items: center; */
   margin: 1rem 0;
   grid-template-columns: 90% 10%;
-`
+`;
 
 const InputsContainer = styled.div`
   display: grid;
@@ -45,7 +45,7 @@ class App extends React.Component {
   }
 
   onChangeInput = (event) => {
-    this.setState({ inputValue: event.target.value }); 
+    this.setState({ inputValue: event.target.value });
   };
 
   criaTarefa = () => {
@@ -62,10 +62,10 @@ class App extends React.Component {
 
   deletaTarefa = (id) => {
     const novaListaTarefas = this.state.tarefas.filter((tarefa) => {
-      return id !== tarefa.id
-    })
-    this.setState({tarefas: novaListaTarefas})
-  }
+      return id !== tarefa.id;
+    });
+    this.setState({ tarefas: novaListaTarefas });
+  };
 
   selectTarefa = (id) => {
     const novaListaTarefas = this.state.tarefas.map((tarefa) => {
@@ -97,6 +97,15 @@ class App extends React.Component {
         default:
           return true;
       }
+
+    });
+
+    const listaCompletas = this.state.tarefas.filter((tarefa) => {
+      return tarefa.completa;
+    });
+
+    const listaPendente = this.state.tarefas.filter((tarefa) => {
+      return !tarefa.completa;
     });
 
     return (
@@ -127,11 +136,65 @@ class App extends React.Component {
                 >
                   {tarefa.texto}
                 </Tarefa>
-                <button onClick={() => {this.deletaTarefa(tarefa.id)}}>x</button>
+                <button
+                  onClick={() => {
+                    this.deletaTarefa(tarefa.id);
+                  }}
+                >
+                  x
+                </button>
               </ContainerTarefa>
             );
           })}
         </TarefaList>
+        <TarefaList>
+          {listaPendente.length > 0 && <h3>Tarefas Pendentes</h3>}
+          {listaPendente.map((tarefa, index) => {
+            return (
+              <ContainerTarefa>
+                <Tarefa
+                  key={index}
+                  completa={tarefa.completa}
+                  onClick={() => this.selectTarefa(tarefa.id)}
+                >
+                  {tarefa.texto}
+                </Tarefa>
+                <button
+                  onClick={() => {
+                    this.deletaTarefa(tarefa.id);
+                  }}
+                >
+                  x
+                </button>
+              </ContainerTarefa>
+            );
+          })}
+        </TarefaList>
+        <TarefaList>
+          {listaCompletas.length > 0 && <h3>Tarefas Completas</h3>}
+
+          {listaCompletas.map((tarefa, index) => {
+            return (
+              <ContainerTarefa>
+                <Tarefa
+                  key={index}
+                  completa={tarefa.completa}
+                  onClick={() => this.selectTarefa(tarefa.id)}
+                >
+                  {tarefa.texto}
+                </Tarefa>
+                <button
+                  onClick={() => {
+                    this.deletaTarefa(tarefa.id);
+                  }}
+                >
+                  x
+                </button>
+              </ContainerTarefa>
+            );
+          })}
+        </TarefaList>
+
       </div>
     );
   }
