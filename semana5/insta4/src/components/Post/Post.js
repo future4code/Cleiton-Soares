@@ -9,9 +9,10 @@ import iconeComentario from '../../img/comment_icon.svg'
 import {SecaoComentario} from '../SecaoComentario/SecaoComentario'
 
 const PostContainer = styled.div`
-  border: 1px solid gray;
   width: 300px;
   margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 2px 3px 6px rgba(0,0,0,0.20);
 `
 
 const PostHeader = styled.div`
@@ -19,6 +20,7 @@ const PostHeader = styled.div`
   display: flex;
   align-items: center;
   padding-left: 10px;
+  
 `
 
 const PostFooter = styled.div`
