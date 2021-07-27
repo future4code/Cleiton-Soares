@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import axios from 'axios'
+
 
 const CadastroContainer = styled.div`
+  justify-self: center;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +15,7 @@ const CadastroContainer = styled.div`
   border: 1px solid black;
 `;
 
-const Formulario = styled.form`
+const Formulario = styled.div`
   display: flex;
   flex-direction: column;
   label {
@@ -28,7 +32,44 @@ const Formulario = styled.form`
   }
 `;
 
+const url = "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users"
+const headers = {
+  headers: {
+    Authorization: "cleiton-silva-lovelace"
+  }
+}
+
+
 export default class Cadastro extends Component {
+  state = {
+    inputNome: "",
+    inputEmail: "",
+  }
+
+  criaUsuario = () => {
+    const body = {
+      name: this.state.inputNome,
+      email: this.state.inputEmail
+    }
+    axios
+    .post(url, body, headers)
+    .then((response) => {
+      alert('Sucesso')
+      this.setState({inputNome: "", inputEmail: ""})
+      })
+      .catch((error) => {
+        alert(error.response.data.message)
+      })
+  }
+
+  onChangeInputNome = (event) => {
+    this.setState({ inputNome: event.target.value })
+  }
+
+  onChangeInputEmail = (event) => {
+    this.setState({ inputEmail: event.target.value })
+  }
+
   render() {
     return (
       <CadastroContainer>
@@ -36,25 +77,16 @@ export default class Cadastro extends Component {
           <label>Nome:</label>
           <input
             type="text"
-            value={this.props.valueInputNome}
-            onChange={this.props.onChangeInputNome}
+            value={this.state.inputNome}
+            onChange={this.onChangeInputNome}
           />
           <label>E-mail:</label>
           <input
             type="text"
-            value={this.props.valueInputEmail}
-            onChange={this.props.onChangeInputEmail}
+            value={this.state.inputEmail}
+            onChange={this.onChangeInputEmail}
           />
-          <button
-            onClick={() =>
-              this.props.criaUsuario(
-                this.props.valueInputNome,
-                this.props.valueInputEmail
-              )
-            }
-          >
-            Salvar
-          </button>
+          <button onClick={this.criaUsuario}>Salvar</button>
         </Formulario>
       </CadastroContainer>
     );

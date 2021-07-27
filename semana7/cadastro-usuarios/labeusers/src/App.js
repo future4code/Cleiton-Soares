@@ -1,61 +1,61 @@
-import React, { Component } from 'react'
-import Cadastro from './components/Cadastro'
-import styled from 'styled-components'
-import axios from 'axios'
+import React, { Component } from "react";
+import Cadastro from "./components/Cadastro";
+import styled from "styled-components";
+import Usuarios from "./components/ListaUsuarios";
 
 const GeneralContainer = styled.div`
-height: 100vh;
-display: flex;
-justify-content: center;
-align-items: center;
-`
-const url = "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users"
-const headers = {
-  headers: {
-    Authorization: "cleiton-silva-lovelace"
-  }
-}
+  padding: 2rem;
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 50px 1fr;
+`;
+const ButtonSwitch = styled.button`
+  justify-self: flex-start;
+  padding: 0.5rem;
+  width: auto;
+  height: auto;
+`;
 
 export default class App extends Component {
   state = {
-    inputNome: "",
-    inputEmail: "",
-  }
+    switchButton: "usuarios",
+  };
 
-  criaUsuario = (nome, email) => {
-    const body = {
-      name: nome,
-      email: email
+  switchComponent = () => {
+    switch (this.state.switchButton) {
+      case "usuarios":
+        this.setState({ switchButton: "cadastro" });
+        break;
+      case "cadastro":
+        this.setState({ switchButton: "usuarios" });
+        break;
+      default:
+        break;
     }
-    axios
-      .post(url, body, headers)
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error.response)
-      })
-  }
+  };
 
-  onChangeInputNome = (event) => {
-    this.setState({ inputNome: event.target.value })
-  }
-
-  onChangeInputEmail = (event) => {
-    this.setState({ inputEmail: event.target.value })
-  }
+  componentRender = () => {
+    switch (this.state.switchButton) {
+      case "usuarios":
+        return <Usuarios />;
+      case "cadastro":
+        return <Cadastro />;
+      default:
+        break;
+    }
+  };
 
   render() {
     return (
       <GeneralContainer>
-        <Cadastro
-          valueInputNome={this.state.inputNome}
-          onChangeInputNome={this.onChangeInputNome}
-          valueInputEmail={this.state.inputEmail}
-          onChangeInputEmail={this.onChangeInputEmail}
-          criaUsuario={this.criaUsuario}
-        />
+        <ButtonSwitch onClick={this.switchComponent}>
+          {this.state.switchButton === "usuarios"
+            ? "Trocar para pagina de cadastro"
+            : "Trocar para pagina de usuarios"}
+        </ButtonSwitch>
+        {this.componentRender()}
       </GeneralContainer>
-    )
+    );
   }
 }
