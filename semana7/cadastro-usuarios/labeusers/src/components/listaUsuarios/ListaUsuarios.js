@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import {ContainerUsuarios} from './stl.ListaUsuarios'
-import {ItemLista} from './stl.ListaUsuarios'
-
+import { ContainerUsuarios } from "./stl.ListaUsuarios";
+import { ItemLista } from "./stl.ListaUsuarios";
 
 const url =
   "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users";
@@ -51,7 +50,11 @@ export default class Usuarios extends Component {
     const renderizaListaUsuarios = this.state.arrayUsuarios.map((usuario) => {
       return (
         <ItemLista key={usuario.id}>
-          <li onClick={() => this.props.abreInfoUsuario(usuario.id)}>{usuario.name}</li>
+
+            <li onClick={() => this.props.abreInfoUsuario(usuario.id)}>
+              {usuario.name}
+            </li>
+
           <button onClick={() => this.deletaUsuario(usuario.id)}>X</button>
         </ItemLista>
       );
@@ -60,7 +63,9 @@ export default class Usuarios extends Component {
     return (
       <ContainerUsuarios>
         <h2>Usuários Cadastrados:</h2>
-        {this.state.arrayUsuarios.length === 0 && <p>Nenhum usuário cadastrado</p>}
+        {this.state.arrayUsuarios.length === 0 && (
+          <p>Nenhum usuário cadastrado</p>
+        )}
         {renderizaListaUsuarios}
       </ContainerUsuarios>
     );
