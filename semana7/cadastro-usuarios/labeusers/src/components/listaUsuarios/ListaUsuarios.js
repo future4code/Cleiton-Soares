@@ -1,20 +1,8 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import axios from "axios";
+import {ContainerUsuarios} from './stl.ListaUsuarios'
+import {ItemLista} from './stl.ListaUsuarios'
 
-const ContainerUsuarios = styled.div`
-  justify-self: center;
-  width: 450px;
-  text-align: center;
-`;
-
-const ItemLista = styled.div`
-  border-bottom: 1px solid #F0F1F5;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  list-style: none;
-`;
 
 const url =
   "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users";
@@ -45,35 +33,34 @@ export default class Usuarios extends Component {
       });
   };
 
-  
   deletaUsuario = (id) => {
-    
-    if (window.confirm('Tem certeza que deseja apagar?') === true) {
+    if (window.confirm("Tem certeza que deseja apagar?") === true) {
       axios
-      .delete(`${url}/${id}`, headers)
-      .then(() => {
-        this.mostraUsuario()
-        alert('Usuário apagado com sucesso.');
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-      });
+        .delete(`${url}/${id}`, headers)
+        .then(() => {
+          this.mostraUsuario();
+          alert("Usuário apagado com sucesso.");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-    }
+  };
 
   render() {
     const renderizaListaUsuarios = this.state.arrayUsuarios.map((usuario) => {
       return (
         <ItemLista key={usuario.id}>
-          <li>{usuario.name}</li>
+          <li onClick={() => this.props.abreInfoUsuario(usuario.id)}>{usuario.name}</li>
           <button onClick={() => this.deletaUsuario(usuario.id)}>X</button>
         </ItemLista>
       );
     });
-    
+
     return (
       <ContainerUsuarios>
-        <h1>Usuários Cadastrados:</h1>
+        <h2>Usuários Cadastrados:</h2>
+        {this.state.arrayUsuarios.length === 0 && <p>Nenhum usuário cadastrado</p>}
         {renderizaListaUsuarios}
       </ContainerUsuarios>
     );
