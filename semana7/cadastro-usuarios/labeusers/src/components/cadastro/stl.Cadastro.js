@@ -1,18 +1,23 @@
 import styled from "styled-components";
 
+
+
 export const CadastroContainer = styled.div`
 background-color: white;
-justify-self: center;
-margin-top: 2rem;
+box-sizing: border-box;
+margin: 2rem auto auto;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-width: 350px;
-height: 260px;
+width: 450px;
+
 padding: 45px;
 box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
 border-radius: 5px;
+@media(max-width: 600px) {
+  width: 100%;
+}
 `;
 
 export const Formulario = styled.div`
@@ -49,4 +54,6 @@ button {
     background-color: #005da6;
   }
 }
+
+
 `;

@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const ContainerUsuarios = styled.div`
   background-color: white;
   margin-top: 2rem;
-
+  box-sizing: border-box;
   padding: 45px;
-  width: 350px;
+  width: 450px;
   height: auto;
   margin-bottom: auto;
   justify-self: center;
@@ -16,6 +16,9 @@ export const ContainerUsuarios = styled.div`
   h2 {
     margin-top: 0;
   }
+  @media(max-width: 600px) {
+  width: 100%;
+}
 `;
 
 export const ItemLista = styled.div`

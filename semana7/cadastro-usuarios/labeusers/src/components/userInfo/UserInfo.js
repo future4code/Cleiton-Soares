@@ -4,14 +4,14 @@ import axios from "axios";
 
 export const GeneralContainer = styled.div`
   margin-top: 82px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: white;
   justify-self: center;
-  /* margin-top: 2rem; */
-  width: 350px;
-  height: 260px;
+  width: 450px;
+  margin-bottom: auto;
   padding: 45px;
   box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
   border-radius: 5px;
@@ -19,6 +19,10 @@ export const GeneralContainer = styled.div`
   h2 {
     margin-top: 0;
   }
+
+  @media(max-width: 600px) {
+  width: 100%;
+}
 `;
 
 export const Info = styled.div`

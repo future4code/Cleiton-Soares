@@ -7,7 +7,7 @@ export const GeneralContainer = styled.div`
   height: 100vh;
   width: 100%;
   display: grid;
-  grid-template-rows: 50px 1fr // 1fr;;
+  grid-template-rows: 50px 1fr
 `;
 
 export const ButtonSwitch = styled.button`
@@ -27,4 +27,8 @@ export const ButtonSwitch = styled.button`
   :hover {
     background-color: #005da6;
   }
+
+  @media(max-width: 600px) {
+  width: 100%;
+}
 `;

@@ -84,6 +84,7 @@ export default class App extends Component {
   render() {
     return (
       <GeneralContainer>
+   
         {this.state.switchButton !== "info" && (
           <ButtonSwitch onClick={this.switchComponent}>
             {this.state.switchButton === "usuarios"
