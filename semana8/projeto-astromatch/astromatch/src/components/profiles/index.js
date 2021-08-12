@@ -1,33 +1,49 @@
 import { useState, useEffect } from 'react'
-import { ImageCard, ImageBlur, Image, PersonContainer, PersonInfos } from './styles'
+import { ImageContainer, ImageBlur, Image, PersonContainer, PersonInfos, ChooseButtons, ButtonsContainer, RestartButton } from './styles' // prettier-ignore
+import cancel from '../../img/cancel.svg'
+import heart from '../../img/heart.svg'
+import restart from '../../img/restart.svg'
 import axios from 'axios'
 
-function Profiles() {
-  const [profile, setprofile] = useState({})
-  let { age, bio, id, name, photo } = profile
+function Profiles(props) {
+  let { age, bio, id, name, photo } = props.profile
 
-  const getProfileToChoose = async () => {
+  const choosePerson = async (choice) => {
+    const body = {
+      id: id,
+      choice: choice,
+    }
     try {
-      const resp = await axios.get(
-        'https://us-central1-missao-newton.cloudfunctions.net/astroMatch/cleiton/person'
+      // eslint-disable-next-line
+      const resp = await axios.post(
+        'https://us-central1-missao-newton.cloudfunctions.net/astroMatch/cleiton/choose-person',
+        body
+        )
+        props.getProfileToChoose()
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    
+    const clear = async () => {
+      try {
+      // eslint-disable-next-line
+      const resp = await axios.put(
+        'https://us-central1-missao-newton.cloudfunctions.net/astroMatch/cleiton/clear'
       )
-      setprofile(resp.data.profile)
     } catch (err) {
       console.error(err)
     }
   }
 
-  useEffect(() => {
-    getProfileToChoose()
-  }, [])
-
   return (
     <>
       <PersonContainer>
-        <ImageCard>
+        <ImageContainer>
           <Image src={photo} alt={name} />
           <ImageBlur src={photo}></ImageBlur>
-        </ImageCard>
+        </ImageContainer>
+
         {id && (
           <PersonInfos>
             <p>
@@ -37,10 +53,17 @@ function Profiles() {
           </PersonInfos>
         )}
       </PersonContainer>
-      <div>
-        <button>Cancel Match</button>
-        <button onClick={getProfileToChoose}>Accept Match</button>
-      </div>
+      <ButtonsContainer>
+        <RestartButton onClick={clear}>
+          <img src={restart} alt='restart' />
+        </RestartButton>
+        <ChooseButtons onClick={() => choosePerson(false)}>
+          <img src={cancel} alt='cancel' />
+        </ChooseButtons>
+        <ChooseButtons onClick={() => choosePerson(true)}>
+          <img src={heart} alt='heart' />
+        </ChooseButtons>
+      </ButtonsContainer>
     </>
   )
 }

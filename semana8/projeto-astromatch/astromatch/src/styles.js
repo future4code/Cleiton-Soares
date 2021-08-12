@@ -20,13 +20,16 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     outline: 0px;
     font-family: 'Ubuntu', sans-serif;
+    color: #626262;
   }
     
 `
 export const GeneralContainer = styled.div`
   width: 380px;
   height: 600px;
-  border: 1px solid black;
+  border: 1px solid #ffecec;
   display: grid;
   grid-template-rows: 4rem 1fr;
+  border-radius: 15px;
+  box-shadow: 2px 2px 10px #cacaca;
 `
