@@ -4,6 +4,8 @@ export const PersonContainer = styled.div`
   box-shadow: 1px 1px 10px rgb(0 0 0 / 20%);
   border-radius: 10px;
   position: relative;
+  height: auto;
+  margin-bottom: auto;
 `
 
 export const ImageContainer = styled.div`
@@ -41,7 +43,7 @@ export const ButtonsContainer = styled.div`
 `
 
 export const Empty = styled.div`
-  height: 200px;
+  height: 100%;
   font-weight: bold;
   font-size: 22px;
   display: flex;

@@ -12,6 +12,7 @@ export const GlobalStyle = createGlobalStyle`
 
     main{
       padding: 1.2rem;
+      height: 550px;
     }
   }
   * {

@@ -1,23 +1,23 @@
-import React from 'react';
-import * as S from './styles' // prettier-ignore
+import React from 'react'
+import * as S from './styles'
 import cancel from '../../img/cancel.svg'
 import heart from '../../img/heart.svg'
 import restart from '../../img/restart.svg'
 import axios from 'axios'
 import { Toast } from '../toast'
-import ReactLoading from 'react-loading';
+import ReactLoading from 'react-loading'
 
 function Profiles(props) {
-  const [ isLoading, setIsLoading ] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false)
   let profile = props.profile
 
   const BottomButtons = () => (
     <>
-      {props.profile !== null &&
+      {props.profile !== null && (
         <S.RestartButton onClick={clear}>
           <img src={restart} alt='restart' />
         </S.RestartButton>
-      }
+      )}
       <S.ChooseButtons
         onClick={() => choosePerson(false)}
         disabled={props.profile === null}
@@ -31,7 +31,7 @@ function Profiles(props) {
         <img src={heart} alt='heart' />
       </S.ChooseButtons>
     </>
-  );
+  )
 
   const choosePerson = async (choice) => {
     const body = {
@@ -39,24 +39,26 @@ function Profiles(props) {
       choice: choice,
     }
     try {
-      setIsLoading(true);
+      setIsLoading(true)
       const resp = await axios.post(
         'https://us-central1-missao-newton.cloudfunctions.net/astroMatch/cleiton/choose-person',
         body
       )
-      setIsLoading(false)
-      if (resp.data.isMatch) {
-        Toast.fire({
-          icon: 'success',
-          title: 'Match!'
-        })
-      } else {
-        Toast.fire({
-          icon: 'error',
-          title: 'No Match!'
-        })
+      if (resp.status === 200) {
+        setIsLoading(false)
+        if (resp.data.isMatch) {
+          Toast.fire({
+            icon: 'success',
+            title: 'Match!',
+          })
+        } else {
+          Toast.fire({
+            icon: 'error',
+            title: 'No Match!',
+          })
+        }
+        props.getProfileToChoose()
       }
-      props.getProfileToChoose()
     } catch (err) {
       console.error(err)
     }
@@ -64,12 +66,14 @@ function Profiles(props) {
 
   const clear = async () => {
     try {
-      setIsLoading(true);
-      await axios.put(
+      setIsLoading(true)
+      const resp = await axios.put(
         'https://us-central1-missao-newton.cloudfunctions.net/astroMatch/cleiton/clear'
       )
-      setIsLoading(false)
-      props.getProfileToChoose()
+      if (resp.status === 200) {
+        setIsLoading(false)
+        props.getProfileToChoose()
+      }
     } catch (err) {
       console.error(err)
     }
@@ -93,22 +97,25 @@ function Profiles(props) {
           )}
         </S.PersonContainer>
       ) : (
-          <S.Empty>
-            <span>No match options</span>
-            <S.NormalRestartButton onClick={clear}>
-              <img src={restart} alt='restart' />
-              Restart
-            </S.NormalRestartButton>
-          </S.Empty>
+        <S.Empty>
+          <span>No match options</span>
+          <S.NormalRestartButton onClick={clear}>
+            <img src={restart} alt='restart' />
+            Restart
+          </S.NormalRestartButton>
+        </S.Empty>
       )}
       <S.ButtonsContainer>
-        {
-          isLoading ? (
-            <ReactLoading type={'spin'} color={'#753192'} height={50} width={50} />
-          ) : (
-            <BottomButtons />
-          )
-        }
+        {isLoading ? (
+          <ReactLoading
+            type={'spin'}
+            color={'#753192'}
+            height={50}
+            width={50}
+          />
+        ) : (
+          <BottomButtons />
+        )}
       </S.ButtonsContainer>
     </S.ProfilesContainer>
   )
