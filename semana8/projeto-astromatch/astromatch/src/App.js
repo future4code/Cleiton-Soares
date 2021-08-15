@@ -28,10 +28,7 @@ function App() {
     switch (currentPage) {
       case 'Profiles':
         return (
-          <Profiles
-            getProfileToChoose={getProfileToChoose}
-            profile={profile}
-          />
+          <Profiles getProfileToChoose={getProfileToChoose} profile={profile} />
         )
       case 'Matches':
         return <Matches />
@@ -42,12 +39,7 @@ function App() {
 
   return (
     <GeneralContainer>
-      <Header
-        currentPage={currentPage}
-        setRightPage={(page) => {
-          setcurrentPage(page)
-        }}
-      />
+      <Header currentPage={currentPage} setcurrentPage={setcurrentPage} />
       <main>{showRightPage()}</main>
     </GeneralContainer>
   )

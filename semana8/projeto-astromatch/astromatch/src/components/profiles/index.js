@@ -14,17 +14,19 @@ function Profiles(props) {
   const BottomButtons = () => (
     <>
       {props.profile !== null && (
-        <S.RestartButton onClick={clear}>
+        <S.RestartButton  title={"Reiniciar"} onClick={clear}>
           <img src={restart} alt='restart' />
         </S.RestartButton>
       )}
       <S.ChooseButtons
+        title={"Deslike"} 
         onClick={() => choosePerson(false)}
         disabled={props.profile === null}
       >
         <img src={cancel} alt='cancel' />
       </S.ChooseButtons>
       <S.ChooseButtons
+      title={"Like"}
         onClick={() => choosePerson(true)}
         disabled={props.profile === null}
       >
@@ -32,6 +34,7 @@ function Profiles(props) {
       </S.ChooseButtons>
     </>
   )
+
 
   const choosePerson = async (choice) => {
     const body = {
@@ -99,7 +102,7 @@ function Profiles(props) {
       ) : (
         <S.Empty>
           <span>No match options</span>
-          <S.NormalRestartButton onClick={clear}>
+          <S.NormalRestartButton title={"Reiniciar"} onClick={clear}>
             <img src={restart} alt='restart' />
             Restart
           </S.NormalRestartButton>
@@ -113,9 +116,7 @@ function Profiles(props) {
             height={50}
             width={50}
           />
-        ) : (
-          <BottomButtons />
-        )}
+        ) : <BottomButtons/>}
       </S.ButtonsContainer>
     </S.ProfilesContainer>
   )

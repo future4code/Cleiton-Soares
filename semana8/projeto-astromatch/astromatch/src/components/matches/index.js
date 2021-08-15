@@ -25,7 +25,6 @@ function Matches() {
 
   React.useEffect(() => {
     getMatches()
-    console.log(matches.length)
   }, [])
 
   const showMatches = matches.map((match) => {
@@ -43,7 +42,11 @@ function Matches() {
     </S.LoadingContainer>
   ) : (
     <S.MatchesContainer>
-      {matches.length === 0 ? <Empty><span>No match options</span></Empty> : showMatches}
+      {matches.length === 0 ? (
+        <Empty>
+          <span>No matches...</span>
+        </Empty>
+      ) : showMatches}
     </S.MatchesContainer>
   )
 }

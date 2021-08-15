@@ -1,19 +1,20 @@
+import React from 'react'
 import * as S from './styles'
 import astromatch from '../../img/astromatch.svg'
 import groups from '../../img/groups.svg'
 import undo from '../../img/undo.svg'
 
-function Header({ currentPage, setRightPage }) {
+function Header({ currentPage, setcurrentPage }) {
   return (
     <S.Header>
       {currentPage === 'Matches' && (
-        <button onClick={() => setRightPage('Profiles')}>
+        <button title={"Voltar"} onClick={() => setcurrentPage('Profiles')}>
           <img src={undo} alt='undo' />
         </button>
       )}
       <img src={astromatch} alt='logo' />
       {currentPage === 'Profiles' && (
-        <button onClick={() => setRightPage('Matches')}>
+        <button title={"Matches"} onClick={() => setcurrentPage('Matches')}>
           <img src={groups} alt='matches' />
         </button>
       )}
