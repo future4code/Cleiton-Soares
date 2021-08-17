@@ -16,19 +16,19 @@ function Router () {
           <Home/>
         </Route>
 
-        <Route exact path="/admin-home">
+        <Route exact path="/admin/trips/list">
           <AdminHome/>
         </Route>
 
-        <Route exact path="/application-form">
+        <Route exact path="/trips/application">
           <ApplicationForm/>
         </Route>
 
-        <Route exact path="/create-trip">
+        <Route exact path="/admin/trips/create">
           <CreateTrip/>
         </Route>
 
-        <Route exact path="/list-trips">
+        <Route exact path="/trips/list">
           <ListTrips/>
         </Route>
 
@@ -36,7 +36,7 @@ function Router () {
           <Login/>
         </Route>
 
-        <Route exact path="/trip-details">
+        <Route exact path="/admin/trips/:id">
           <TripDetails/>
         </Route>
 
