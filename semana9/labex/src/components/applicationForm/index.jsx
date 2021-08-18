@@ -1,10 +1,12 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import * as S from './styles'
 import { useRequestData } from '../../hooks/useRequestData'
 import { countries } from './countries'
 import axios from 'axios'
+import { useGoRoutes } from '../../hooks/useGoRoutes'
 
 export default function ApplicationForm() {
+  const {goListTrips} = useGoRoutes()
   const initialValues = {
     inputName: '',
     inputAge: '',
@@ -14,7 +16,7 @@ export default function ApplicationForm() {
     selectTrip: '',
   }
   const [values, setValues] = React.useState(initialValues)
-  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setValues({
@@ -22,7 +24,7 @@ export default function ApplicationForm() {
       [name]: value,
     })
   }
-  
+
   const applyToTrip = (event) => {
     event.preventDefault()
     const body = {
@@ -33,12 +35,12 @@ export default function ApplicationForm() {
       country: values.selectCountry,
     }
     const header = { header: 'Content-Type: application/json' }
-    
+
     axios
-    .post(
-      `https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips/${values.selectTrip}/apply`,
-      body,
-      header
+      .post(
+        `https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips/${values.selectTrip}/apply`,
+        body,
+        header
       )
       .then(() => {
         alert('Cadastro feito com sucesso')
@@ -47,39 +49,36 @@ export default function ApplicationForm() {
       .catch((err) => {
         alert(err)
       })
-    }
-    
-    const [trips] = useRequestData(
-      'https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips'
-      )
-      
-      const showTrips =
-      trips &&
-      trips.trips.map((trip) => {
-        return (
-          <option value={trip.id} key={trip.id}>
+  }
+
+  const [trips] = useRequestData(
+    'https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips'
+  )
+
+  const showTrips =
+    trips &&
+    trips.trips.map((trip) => {
+      return (
+        <option value={trip.id} key={trip.id}>
           {trip.name}
         </option>
       )
     })
-    
-    const showContries = countries.map((country, i) => {
-      return (
-        <option key={i} value={country.name}>
+
+  const showContries = countries.map((country, i) => {
+    return (
+      <option key={i} value={country.name}>
         {country.name}
       </option>
     )
   })
-  
-  const history = useHistory()
-  const goListTrips = () => {
-    history.push('/trips/list')
-  }
-  
+
+
+
   return (
     <div>
       <h1>Inscreva-se para uma viagem</h1>
-      <form onSubmit={applyToTrip}>
+      <S.ApplyForm onSubmit={applyToTrip}>
         <select
           name='selectTrip'
           value={values.selectTrip}
@@ -124,9 +123,11 @@ export default function ApplicationForm() {
           <option>Escolha um país</option>
           {showContries}
         </select>
-        <button onClick={goListTrips}>Voltar</button>
-        <button type={'submit'}>Enviar</button>
-      </form>
+        <div>
+          <button onClick={goListTrips}>Voltar</button>
+          <button type={'submit'}>Enviar</button>
+        </div>
+      </S.ApplyForm>
     </div>
   )
 }
