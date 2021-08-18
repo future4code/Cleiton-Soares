@@ -21,8 +21,8 @@ export const useGoRoutes = () => {
   const goLogin = () => {
     history.push('/login')
   }
-  const goTripDetails = () => {
-    history.push('/admin/trips/:id')
+  const goTripDetails = (id) => {
+    history.push(`/admin/trips/${id}`)
   }
 
   return {goHome, goAdminHome, goApplicationForm, goCreateTrip, goListTrips, goLogin, goTripDetails}

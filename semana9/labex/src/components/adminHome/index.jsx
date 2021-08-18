@@ -5,31 +5,26 @@ import { useGoRoutes } from '../../hooks/useGoRoutes'
 import { useRequestData } from '../../hooks/useRequestData'
 
 export default function AdminHome() {
-  const { goHome } = useGoRoutes()
+  const { goHome, goTripDetails } = useGoRoutes()
   useProtectedPage()
 
   const [tripsList, isLoading] = useRequestData(
     'https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips'
   )
 
-  const [tripId, setTripId] = React.useState('')
-  console.log(tripId)
-
   const showTrips =
     tripsList &&
     tripsList.trips.map((trip) => {
       return (
         <TripCard
+          onClick={() => {
+            goTripDetails(trip.id)
+          }}
           key={trip.id}
+          id={trip.id}
           name={trip.name}
-          description={trip.description}
-          planet={trip.planet}
-          durationInDays={trip.durationInDays}
-          date={trip.date}
-        >
-          {trip.name}
-          <button>Apagar</button>
-        </TripCard>
+
+        />
       )
     })
 

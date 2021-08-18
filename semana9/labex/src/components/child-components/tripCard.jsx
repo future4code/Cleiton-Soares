@@ -1,12 +1,11 @@
 import React from 'react'
 
-export default function TripCard({name, description, planet, durationInDays, date}) {
-
+export default function TripCard({ name, onClick }) {
   return (
-    <div>
+    <div onClick={onClick}>
       <span>{name}</span>
       <button>Apagar</button>
-      <hr/>
+      <hr />
     </div>
   )
 }
