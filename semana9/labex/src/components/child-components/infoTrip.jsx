@@ -13,11 +13,12 @@ export default function InfoTrip({nome, descricao, planeta, duracao, data}) {
         <b>Planeta: </b> {planeta}
       </p>
       <p>
-        <b>Duração: </b> {duracao}
+        <b>Duração: </b> {duracao} dias
       </p>
       <p>
         <b>Data: </b> {data}
       </p>
+      <hr/>
     </div>
   )
 }
