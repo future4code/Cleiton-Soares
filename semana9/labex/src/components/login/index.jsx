@@ -48,11 +48,12 @@ export default function Login() {
       <h1>Login</h1>
       <form onSubmit={SubmitLogin}>
         <input
-          type='text'
           placeholder='E-mail'
           name='inputEmail'
+          type='email'
           onChange={handleInputChange}
           value={values.inputEmail}
+          required
         />
         <input
           type='password'
@@ -60,6 +61,7 @@ export default function Login() {
           name='inputPass'
           onChange={handleInputChange}
           value={values.inputPass}
+          required
         />
         <button type='button' onClick={goHome}>Voltar</button>
         <button type='submit'>Entrar</button>
