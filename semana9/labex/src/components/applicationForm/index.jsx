@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import * as S from './styles'
-import { useRequestData } from '../../hooks/useRequestData'
+import useRequestData from '../../hooks/useRequestData'
 import { countries } from './countries'
-import axios from 'axios'
-import { useGoRoutes } from '../../hooks/useGoRoutes'
 
 export default function ApplicationForm() {
-  const {goListTrips} = useGoRoutes()
+  //Forms
   const initialValues = {
     inputName: '',
     inputAge: '',
@@ -23,7 +22,11 @@ export default function ApplicationForm() {
       ...values,
       [name]: value,
     })
-  }
+  } // finish forms
+
+  
+  // apply request
+  const [applyData, applyLoading, applyError, applyRequest] = useRequestData() // eslint-disable-line
 
   const applyToTrip = (event) => {
     event.preventDefault()
@@ -36,28 +39,34 @@ export default function ApplicationForm() {
     }
     const header = { header: 'Content-Type: application/json' }
 
-    axios
-      .post(
-        `https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips/${values.selectTrip}/apply`,
-        body,
-        header
-      )
-      .then(() => {
-        alert('Cadastro feito com sucesso')
-        setValues(initialValues)
-      })
-      .catch((err) => {
-        alert(err)
-      })
-  }
+    applyRequest(
+      `https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips/${values.selectTrip}/apply`,
+      body,
+      header,
+      'post'
+    )
 
-  const [trips] = useRequestData(
-    'https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips'
-  )
+    applyData && alert('Cadastro feito com sucesso')
+    setValues(initialValues)
+
+    applyError && console.log(applyError)
+  } // finish apply request 
+
+
+  const [tripsData, tripsLoading, tripsError, tripsRequest] = useRequestData() // eslint-disable-line
+
+  useEffect(() => {
+    tripsRequest(
+      'https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips',
+      undefined,
+      undefined,
+      'get'
+    )
+  }, [tripsRequest, tripsData])
 
   const showTrips =
-    trips &&
-    trips.trips.map((trip) => {
+    tripsData &&
+    tripsData.data.trips.map((trip) => {
       return (
         <option value={trip.id} key={trip.id}>
           {trip.name}
@@ -73,8 +82,6 @@ export default function ApplicationForm() {
     )
   })
 
-
-
   return (
     <div>
       <h1>Inscreva-se para uma viagem</h1>
@@ -83,6 +90,7 @@ export default function ApplicationForm() {
           name='selectTrip'
           value={values.selectTrip}
           onChange={handleInputChange}
+          required
         >
           <option value='default'>Escolha uma viagem</option>
           {showTrips}
@@ -93,6 +101,7 @@ export default function ApplicationForm() {
           placeholder='Nome'
           onChange={handleInputChange}
           value={values.inputName}
+          required
         />
         <input
           name='inputAge'
@@ -100,13 +109,17 @@ export default function ApplicationForm() {
           placeholder='Idade'
           onChange={handleInputChange}
           value={values.inputAge}
+          required
         />
         <input
+          title='O texto deve ter no mínimo 30 caracteres.'
           name='inputText'
           type='text'
           placeholder='Texto de Candidatura'
           onChange={handleInputChange}
           value={values.inputText}
+          minLength='30'
+          required
         />
         <input
           name='inputProfession'
@@ -114,17 +127,21 @@ export default function ApplicationForm() {
           placeholder='Profissão'
           onChange={handleInputChange}
           value={values.inputProfession}
+          required
         />
         <select
           name='selectCountry'
           value={values.selectCountry}
           onChange={handleInputChange}
+          required
         >
           <option>Escolha um país</option>
           {showContries}
         </select>
         <div>
-          <button onClick={goListTrips}>Voltar</button>
+          <Link to='/trips/list'>
+            <button>Voltar</button>
+          </Link>
           <button type={'submit'}>Enviar</button>
         </div>
       </S.ApplyForm>

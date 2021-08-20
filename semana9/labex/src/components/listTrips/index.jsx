@@ -1,18 +1,24 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import InfoTrip from '../child-components/infoTrip'
-import { useRequestData } from '../../hooks/useRequestData'
+import useRequestData from '../../hooks/useRequestData'
 import { useGoRoutes } from '../../hooks/useGoRoutes'
 
 export default function ListTrips() {
   const { goHome, goApplicationForm } = useGoRoutes()
-
-  const [trips, isLoading] = useRequestData(
-    'https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips'
-  )
+  const [ data, loading, error, request ] = useRequestData()
+  
+  useEffect(() => {
+    request(
+      'https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips',
+      undefined,
+      undefined,
+      'get'
+    )
+  }, [request])
 
   const showTrips =
-    trips &&
-    trips.trips.map((trip) => {
+    data &&
+    data.data.trips.map((trip) => {
       return (
         <InfoTrip
           key={trip.id}
@@ -30,7 +36,9 @@ export default function ListTrips() {
       <button onClick={goHome}>Voltar</button>
       <button onClick={goApplicationForm}>Inscrever-se</button>
       <h1>Lista de viagens</h1>
-      {isLoading ? <p>Carregando...</p> : trips && showTrips}
+      {loading && <p>Carregando...</p>}
+      {!loading && error && <p>Algo deu errado</p>}
+      {!loading && !error && data && showTrips}
     </div>
   )
 }

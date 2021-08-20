@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useProtectedPage } from '../../hooks/useProtectedPage'
-import { useRequestData } from '../../hooks/useRequestData'
+import useRequestData from '../../hooks/useRequestData'
 import { useGoRoutes } from '../../hooks/useGoRoutes'
 import CandidateCard from '../child-components/candidateCard'
 
@@ -9,17 +9,24 @@ export default function TripDetails() {
   const { goAdminHome } = useGoRoutes()
   const pathParams = useParams()
   const token = window.localStorage.getItem('token')
-  const [tripDetail] = useRequestData(
-    `https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trip/${pathParams.id}
-  `,
-    { headers: { auth: token } }
-  )
 
-  // tripDetail && console.log(tripDetail.trip)
+  const [data, loading, error, request] = useRequestData() //eslint-disable-line
 
-  const showCadidates =
-    tripDetail &&
-    tripDetail.trip.candidates.map((candidate) => {
+  useEffect(() => {
+    request(
+      `https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trip/${pathParams.id}
+    `,
+      '',
+      { headers: { auth: token } },
+      'get'
+    )
+  }, [data, request, token, pathParams.id]) 
+  useProtectedPage()
+  if (data) {
+    const { trip } = data.data
+    const { name, description, planet, durationInDays, date } = trip
+
+    const showCadidates = trip.candidates.map((candidate) => {
       return (
         <CandidateCard
           key={candidate.id}
@@ -35,39 +42,36 @@ export default function TripDetails() {
       )
     })
 
-  useProtectedPage()
-
-  return (
-    <>
-      {tripDetail && (
+    return (
+      <>
         <div>
           <div>
-            <h1>{tripDetail.trip.name}</h1>
+            <h1>{name}</h1>
             <p>
               <b>Nome: </b>
-              {tripDetail.trip.name}
+              {name}
             </p>
             <p>
               <b>Descrição: </b>
-              {tripDetail.trip.description}
+              {description}
             </p>
             <p>
               <b>Planeta: </b>
-              {tripDetail.trip.planet}
+              {planet}
             </p>
             <p>
               <b>Duração: </b>
-              {tripDetail.trip.durationInDays} dias
+              {durationInDays} dias
             </p>
             <p>
               <b>Data: </b>
-              {tripDetail.trip.date}
+              {date}
             </p>
           </div>
           <button onClick={goAdminHome}>Voltar</button>
           <div>
             <h2>Candidatos Pendentes</h2>
-            {tripDetail.trip.candidates.length === 0 ? (
+            {trip.candidates.length === 0 ? (
               <p>Não há candidatos pendentes</p>
             ) : (
               showCadidates
@@ -75,16 +79,17 @@ export default function TripDetails() {
           </div>
           <div>
             <h2>Candidatos Aprovados</h2>
-            {tripDetail.trip.approved.length === 0 ? (
+            {trip.approved.length === 0 ? (
               <p>Não há candidatos aprovados</p>
             ) : (
-              tripDetail.trip.approved.map((candidato) => {
+              trip.approved.map((candidato) => {
                 return <li key={candidato.id}>{candidato.name}</li>
               })
             )}
           </div>
         </div>
-      )}
-    </>
-  )
+      </>
+    )
+  }
+  return <>Loading...</>
 }
