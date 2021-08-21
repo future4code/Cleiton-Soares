@@ -2,48 +2,54 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useProtectedPage } from '../../hooks/useProtectedPage'
 import { useGoRoutes } from '../../hooks/useGoRoutes'
-import TripCard from '../child-components/tripCard'
-import useRequestData from '../../hooks/useRequestData'
 import { Button } from 'react-bootstrap'
+import { useGet } from '../../hooks/services/useGet'
+import TripCard from '../child-components/tripCard'
 
 export default function AdminHome() {
-  const { goTripDetails } = useGoRoutes()
+  const { goTripDetails, goCreateTrip, goLogin, goHome } = useGoRoutes()
+  const { data, isLoading, error, get } = useGet('trips')
   useProtectedPage()
 
   const [tripList, setTripList] = useState([])
-  const [data, isLoading, error, request] = useRequestData()
 
   useEffect(() => {
-    request(
-      'https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips',
-      '',
-      '',
-      'get'
-    )
+    get()
   }, [])
 
   useEffect(() => {
-    data && setTripList(data.data.trips)
+    data && setTripList(data.trips)
   }, [data])
 
   const handleDelete = (data) => {
-    setTripList(tripList.filter((element)=> element.id !== data.id))
+    setTripList(tripList.filter((element) => element.id !== data.id))
+  }
+
+  const logout = () => {
+    localStorage.removeItem('token')
+    goLogin()
   }
 
   return (
     <div>
       <h1>Painel Administrativo</h1>
       <div>
-        <Link to='/'>
-          <Button variant="secondary">Voltar</Button>
-        </Link>
-        <Button variant='primary'>Criar Viagem</Button>
-        <Button variant='outline-secondary' >Logout</Button>
+        <Button variant='secondary' onClick={goHome}>
+          Voltar
+        </Button>
+
+        <Button variant='primary' onClick={goCreateTrip}>
+          Criar Viagem
+        </Button>
+
+        <Button variant='outline-secondary' onClick={logout}>
+          Logout
+        </Button>
+
         {isLoading && <p>Carregando...</p>}
-        {!isLoading && error && <p>Algo deu errado</p>}
-        {!isLoading && !error &&
-          tripList &&
-          tripList.map((trip) => (
+        {error && <p>Algo deu errado. </p>}
+
+        {tripList.map((trip) => (
             <TripCard
               onClick={() => goTripDetails(trip.id)}
               onDelete={handleDelete}

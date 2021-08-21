@@ -23,8 +23,8 @@ export default function Login() {
 
   const [data, loading, error, request] = useRequestData()
 
-  const SubmitLogin = (e) => {
-    e.preventDefault()
+  const SubmitLogin = (event) => {
+    event.preventDefault()
     request(
       'https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/login',
       { email: values.inputEmail, password: values.inputPass },

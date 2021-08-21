@@ -1,49 +1,48 @@
-import React from 'react'
-// import axios from 'axios'
-import useRequestData from '../../hooks/useRequestData'
+import React, { useEffect } from 'react'
+import { usePut } from '../../hooks/services/usePut'
 
 export default function CandidateCard(props) {
-  const [respDecide, loading, error, requestDecide] = useRequestData()
-
-  const decideCandidate = (choice) => {
-    const headers = {
+  const { data, put } = usePut(
+    `${props.tripId}/candidates/${props.id}/decide`,
+    {
       headers: {
         ContentType: 'application/json',
         auth: props.token,
       },
     }
-    requestDecide(
-      `https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips/${props.tripId}/candidates/${props.id}/decide`,
-      { approve: choice },
-      headers,
-      'put'
-    )
-    error && console.log(error)
-    props.onClick(props)
+  )
+
+  const decideCandidate = (choice) => {
+    if (
+      window.confirm(
+        `Deseja ${choice === true ? 'aprovar' : 'reprovar'} este candidato?`
+      )
+    ) {
+      put({ approve: choice })
+    }
   }
+
+  useEffect(() => {
+    data && props.onClick(props)
+  }, [data])
+
+  const info = [
+    { title: 'Nome: ', prop: props.name },
+    { title: 'Profissão: ', prop: props.profession },
+    { title: 'Idade: ', prop: props.age },
+    { title: 'País: ', prop: props.country },
+    { title: 'Texto de Candidatura: ', prop: props.applicationText },
+  ]
 
   return (
     <div>
-      <p>
-        <b>Nome: </b>
-        {props.name}
-      </p>
-      <p>
-        <b>Profissão: </b>
-        {props.profession}
-      </p>
-      <p>
-        <b>Idade: </b>
-        {props.age}
-      </p>
-      <p>
-        <b>País: </b>
-        {props.country}
-      </p>
-      <p>
-        <b>Texto de Candidatura: </b>
-        {props.applicationText}
-      </p>
+      {info.map((item) => (
+        <p>
+          <b>{item.title}</b>
+          {item.prop}
+        </p>
+      ))}
+
       <button onClick={() => decideCandidate(true)}>Aprovar</button>
       <button onClick={() => decideCandidate(false)}>Reprovar</button>
       <hr />
