@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom'
 import * as S from './styles'
 import useRequestData from '../../hooks/useRequestData'
 import { countries } from './countries'
+import {
+  Container,
+  Row,
+  Col,
+  InputGroup,
+  FormControl,
+  Form,
+} from 'react-bootstrap'
 
 export default function ApplicationForm() {
   //Forms
@@ -24,7 +32,6 @@ export default function ApplicationForm() {
     })
   } // finish forms
 
-  
   // apply request
   const [applyData, applyLoading, applyError, applyRequest] = useRequestData() // eslint-disable-line
 
@@ -50,8 +57,7 @@ export default function ApplicationForm() {
     setValues(initialValues)
 
     applyError && console.log(applyError)
-  } // finish apply request 
-
+  } // finish apply request
 
   const [tripsData, tripsLoading, tripsError, tripsRequest] = useRequestData() // eslint-disable-line
 
@@ -81,70 +87,75 @@ export default function ApplicationForm() {
       </option>
     )
   })
-
+  //xs sm md lg xl
   return (
-    <div>
+    <Container>
       <h1>Inscreva-se para uma viagem</h1>
-      <S.ApplyForm onSubmit={applyToTrip}>
-        <select
-          name='selectTrip'
-          value={values.selectTrip}
-          onChange={handleInputChange}
-          required
-        >
-          <option value='default'>Escolha uma viagem</option>
-          {showTrips}
-        </select>
-        <input
-          name='inputName'
-          type='text'
-          placeholder='Nome'
-          onChange={handleInputChange}
-          value={values.inputName}
-          required
-        />
-        <input
-          name='inputAge'
-          type='number'
-          placeholder='Idade'
-          onChange={handleInputChange}
-          value={values.inputAge}
-          required
-        />
-        <input
-          title='O texto deve ter no mínimo 30 caracteres.'
-          name='inputText'
-          type='text'
-          placeholder='Texto de Candidatura'
-          onChange={handleInputChange}
-          value={values.inputText}
-          minLength='30'
-          required
-        />
-        <input
-          name='inputProfession'
-          type='text'
-          placeholder='Profissão'
-          onChange={handleInputChange}
-          value={values.inputProfession}
-          required
-        />
-        <select
-          name='selectCountry'
-          value={values.selectCountry}
-          onChange={handleInputChange}
-          required
-        >
-          <option>Escolha um país</option>
-          {showContries}
-        </select>
-        <div>
-          <Link to='/trips/list'>
-            <button>Voltar</button>
-          </Link>
-          <button type={'submit'}>Enviar</button>
-        </div>
-      </S.ApplyForm>
-    </div>
+      <Row>
+        <Col lg={6}>
+          <form onSubmit={applyToTrip}>
+            <Form.Select
+              name='selectTrip'
+              value={values.selectTrip}
+              onChange={handleInputChange}
+              required
+            >
+              <option value='default'>Escolha uma viagem</option>
+              {showTrips}
+            </Form.Select>
+            <FormControl
+              name='inputName'
+              type='text'
+              placeholder='Nome'
+              onChange={handleInputChange}
+              value={values.inputName}
+              required
+            />
+            <FormControl
+              name='inputAge'
+              type='number'
+              placeholder='Idade'
+              onChange={handleInputChange}
+              value={values.inputAge}
+              required
+            />
+            <FormControl
+              title='O texto deve ter no mínimo 30 caracteres.'
+              name='inputText'
+              type='text'
+              placeholder='Texto de Candidatura'
+              onChange={handleInputChange}
+              value={values.inputText}
+              minLength='30'
+              required
+            />
+            <FormControl
+              name='inputProfession'
+              type='text'
+              placeholder='Profissão'
+              onChange={handleInputChange}
+              value={values.inputProfession}
+              required
+            />
+            <Form.Select
+              name='selectCountry'
+              value={values.selectCountry}
+              onChange={handleInputChange}
+              required
+            >
+              <option>Escolha um país</option>
+              {showContries}
+            </Form.Select>
+            <div>
+              <Link to='/trips/list'>
+                <button>Voltar</button>
+              </Link>
+              <button type={'submit'}>Enviar</button>
+            </div>
+          </form>
+        </Col>
+        <Col></Col>
+      </Row>
+    </Container>
   )
 }

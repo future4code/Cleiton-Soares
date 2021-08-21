@@ -1,50 +1,57 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useProtectedPage } from '../../hooks/useProtectedPage'
-import TripCard from '../child-components/tripCard'
 import { useGoRoutes } from '../../hooks/useGoRoutes'
+import TripCard from '../child-components/tripCard'
 import useRequestData from '../../hooks/useRequestData'
+import { Button } from 'react-bootstrap'
 
 export default function AdminHome() {
   const { goTripDetails } = useGoRoutes()
   useProtectedPage()
 
-  const [tripsList, isLoading, error, request] = useRequestData()
+  const [tripList, setTripList] = useState([])
+  const [data, isLoading, error, request] = useRequestData()
 
   useEffect(() => {
     request(
       'https://us-central1-labenu-apis.cloudfunctions.net/labeX/cleiton-lovelace/trips',
-      undefined,
-      undefined,
+      '',
+      '',
       'get'
     )
-  }, [request])
+  }, [])
 
-  const showTrips =
-    tripsList &&
-    tripsList.data.trips.map((trip) => {
-      return (
-          <TripCard
-            onClick={() => {
-              goTripDetails(trip.id)
-            }}
-            key={trip.id}
-            id={trip.id}
-            name={trip.name}
-          />
-      )
-    })
+  useEffect(() => {
+    data && setTripList(data.data.trips)
+  }, [data])
+
+  const handleDelete = (data) => {
+    setTripList(tripList.filter((element)=> element.id !== data.id))
+  }
 
   return (
     <div>
       <h1>Painel Administrativo</h1>
       <div>
         <Link to='/'>
-          <button>Voltar</button>
+          <Button variant="secondary">Voltar</Button>
         </Link>
-        <button>Criar Viagem</button>
-        <button>Logout</button>
-        {isLoading ? <p>Carregando...</p> : tripsList && showTrips}
+        <Button variant='primary'>Criar Viagem</Button>
+        <Button variant='outline-secondary' >Logout</Button>
+        {isLoading && <p>Carregando...</p>}
+        {!isLoading && error && <p>Algo deu errado</p>}
+        {!isLoading && !error &&
+          tripList &&
+          tripList.map((trip) => (
+            <TripCard
+              onClick={() => goTripDetails(trip.id)}
+              onDelete={handleDelete}
+              key={trip.id}
+              id={trip.id}
+              name={trip.name}
+            />
+          ))}
       </div>
     </div>
   )

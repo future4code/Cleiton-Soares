@@ -18,8 +18,8 @@ export default function CandidateCard(props) {
       headers,
       'put'
     )
-    error && console.log(error);
-    console.log(respDecide);
+    error && console.log(error)
+    props.onClick(props)
   }
 
   return (
