@@ -1,11 +1,11 @@
 import { Switch, Route, BrowserRouter } from 'react-router-dom'
-import AdminHome from '../components/adminHome'
-import ApplicationForm from '../components/applicationForm'
-import CreateTrip from '../components/createTrip'
-import Home from '../components/home'
-import ListTrips from '../components/listTrips'
-import Login from '../components/login'
-import TripDetails from '../components/tripDetails'
+import AdminHome from '../pages/AdminHome'
+import ApplicationForm from '../pages/ApplicationForm'
+import CreateTrip from '../pages/CreateTrip'
+import Home from '../pages/Home'
+import ListTrips from '../pages/ListTrips'
+import Login from '../pages/Login'
+import TripDetails from '../pages/TripDetails'
 
 function Router () {
   return (
