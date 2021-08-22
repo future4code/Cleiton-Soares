@@ -1,7 +1,11 @@
-import React, { useEffect } from 'react'
-import { usePut } from '../../services/usePut'
+import React, { useEffect, useState } from 'react'
+import { usePut } from '../../../services/usePut'
+import Buttons from '../../../components/Buttons/index'
+import { Card } from 'react-bootstrap'
+import * as S from '../../../styles/styles'
 
 export default function CandidateCard(props) {
+
   const { data, put } = usePut(
     `${props.tripId}/candidates/${props.id}/decide`,
     {
@@ -35,17 +39,30 @@ export default function CandidateCard(props) {
   ]
 
   return (
-    <div>
-      {info.map((item) => (
-        <p>
-          <b>{item.title}</b>
-          {item.prop}
-        </p>
-      ))}
+    <S.Margin>
 
-      <button onClick={() => decideCandidate(true)}>Aprovar</button>
-      <button onClick={() => decideCandidate(false)}>Reprovar</button>
-      <hr />
-    </div>
+
+      <Card body>
+        {info.map((item) => (
+          <p>
+            <b>{item.title}</b>
+            {item.prop}
+          </p>
+        ))}
+
+        <Buttons
+          onClick={() => decideCandidate(true)}
+          name='Aprovar'
+          size='sm'
+          variant='success'
+        ></Buttons>
+        <Buttons
+          onClick={() => decideCandidate(false)}
+          name='Reprovar'
+          size='sm'
+          variant='danger'
+        ></Buttons>
+      </Card>
+    </S.Margin>
   )
 }

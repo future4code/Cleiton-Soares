@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useProtectedPage } from '../../hooks/useProtectedPage'
 import { useGoRoutes } from '../../hooks/useGoRoutes'
-import CandidateCard from '../../components/CandidateCard'
+import CandidateCard from './CandidateCard'
 import { useGet } from '../../services/useGet'
+import Buttons from '../../components/Buttons/index'
+import { ListGroup, Alert } from 'react-bootstrap'
+import * as S from '../../styles/styles'
+import { AprovedsList } from './styles'
 
 export default function TripDetails() {
   const pathParams = useParams()
@@ -14,8 +18,12 @@ export default function TripDetails() {
   const [candidates, setCandidates] = useState([])
   const [approveds, setApproveds] = useState([])
 
-  const {get, data, isLoading} = useGet(`trip/${pathParams.id}`, { headers: { auth: token } })
-  useEffect(() => {get()},[])
+  const { get, data, isLoading } = useGet(`trip/${pathParams.id}`, {
+    headers: { auth: token },
+  })
+  useEffect(() => {
+    get()
+  }, [])
 
   useProtectedPage()
 
@@ -43,8 +51,10 @@ export default function TripDetails() {
     </>
   ) : (
     <>
+      <Buttons onClick={goAdminHome} name='Voltar'></Buttons>
+
+      <h1>{tripData.name}</h1>
       <div>
-        <h1>{tripData.name}</h1>
         <p>
           <b>Nome: </b>
           {tripData.name}
@@ -66,12 +76,13 @@ export default function TripDetails() {
           {tripData.date}
         </p>
       </div>
-
-      <button onClick={goAdminHome}>Voltar</button>
+      <br />
+      <h2>Candidatos Pendentes</h2>
       <div>
-        <h2>Candidatos Pendentes</h2>
         {candidates && candidates.length === 0 ? (
-          <p>Não há candidatos pendentes</p>
+          <ListGroup>
+            <ListGroup.Item>Não há candidatos pendentes</ListGroup.Item>
+          </ListGroup>
         ) : (
           candidates &&
           candidates.map((candidate) => (
@@ -90,17 +101,25 @@ export default function TripDetails() {
           ))
         )}
       </div>
-      <div>
-        <h2>Candidatos Aprovados</h2>
-        {approveds && approveds.length === 0 ? (
-          <p>Não há candidatos aprovados</p>
-        ) : (
-          approveds &&
-          approveds.map((candidato) => (
-            <li key={candidato.id}>{candidato.name}</li>
-          ))
-        )}
-      </div>
+
+      <br />
+      <h2>Candidatos Aprovados</h2>
+      {approveds && approveds.length === 0 ? (
+        <ListGroup>
+          <ListGroup.Item variant='light'>Não há candidatos aprovados</ListGroup.Item>
+        </ListGroup>
+      ) : (
+        <S.Margin>
+          <AprovedsList>
+            {approveds &&
+              approveds.map((candidato) => (
+                <ListGroup.Item action key={candidato.id}>
+                  {candidato.name}
+                </ListGroup.Item>
+              ))}
+          </AprovedsList>
+        </S.Margin>
+      )}
     </>
   )
 }

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useProtectedPage } from '../../hooks/useProtectedPage'
 import { useGoRoutes } from '../../hooks/useGoRoutes'
-import { Button } from 'react-bootstrap'
 import { useGet } from '../../services/useGet'
-import TripCard from '../../components/TripCard'
+import TripCard from './TripCard'
+import Buttons from '../../components/Buttons'
+import * as S from '../../styles/styles'
 
 export default function AdminHome() {
   const { goTripDetails, goCreateTrip, goLogin, goHome } = useGoRoutes()
@@ -33,17 +34,15 @@ export default function AdminHome() {
     <div>
       <h1>Painel Administrativo</h1>
       <div>
-        <Button variant='secondary' onClick={goHome}>
-          Voltar
-        </Button>
-
-        <Button variant='primary' onClick={goCreateTrip}>
-          Criar Viagem
-        </Button>
-
-        <Button variant='outline-secondary' onClick={logout}>
-          Logout
-        </Button>
+        <S.CentralizedDiv>
+          <Buttons variant='outline-primary' onClick={goHome} name='Voltar' />
+          <Buttons
+            variant='primary'
+            onClick={goCreateTrip}
+            name='Criar Viagem'
+          />
+          <Buttons variant='outline-danger' onClick={logout} name='Logout' />
+        </S.CentralizedDiv>
 
         {isLoading && <p>Carregando...</p>}
         {error && <p>Algo deu errado. </p>}

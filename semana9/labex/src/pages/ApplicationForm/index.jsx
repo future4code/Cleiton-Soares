@@ -5,6 +5,8 @@ import useForm from '../../hooks/useForm'
 import { usePost } from '../../services/usePost'
 import { useGet } from '../../services/useGet'
 import { Container, Row, Col, FormControl, Form, } from 'react-bootstrap' //prettier-ignore
+import Buttons from '../../components/Buttons/index'
+import * as S from '../../styles/styles'
 
 export default function ApplicationForm() {
   const initialValues = {
@@ -13,7 +15,7 @@ export default function ApplicationForm() {
     applicationText: '',
     profession: '',
     country: '',
-    selectTrip: ''
+    selectTrip: '',
   }
   const { values, handleChange, setValues } = useForm(initialValues)
 
@@ -54,23 +56,29 @@ export default function ApplicationForm() {
   //xs sm md lg xl
   return (
     <Container>
-      <h1>Inscreva-se para uma viagem</h1>
-      <Row>
-        <Col xs={12} md={6}>
-          <form onSubmit={applyToTrip}>
+      <Row className='justify-content-md-center'>
+        <S.CentralizedDiv>
+          <h1>Inscreva-se para uma viagem</h1>
+        </S.CentralizedDiv>
+        <Form style={{ width: '450px' }} onSubmit={applyToTrip}>
+          <S.Margin>
             <Form.Select
               name='selectTrip'
               value={values.selectTrip}
               onChange={handleChange}
               required
             >
-              <option value='' selected hidden>Escolha uma viagem</option>
+              <option value='' selected hidden>
+                Escolha uma viagem
+              </option>
               {trips.map((trip) => (
                 <option value={trip.id} key={trip.id}>
                   {trip.name}
                 </option>
               ))}
             </Form.Select>
+          </S.Margin>
+          <S.Margin>
             <FormControl
               name='name'
               type='text'
@@ -79,6 +87,8 @@ export default function ApplicationForm() {
               value={values.name}
               required
             />
+          </S.Margin>
+          <S.Margin>
             <FormControl
               name='age'
               type='number'
@@ -87,6 +97,8 @@ export default function ApplicationForm() {
               value={values.age}
               required
             />
+          </S.Margin>
+          <S.Margin>
             <FormControl
               title='O texto deve ter no mínimo 30 caracteres.'
               name='applicationText'
@@ -97,6 +109,8 @@ export default function ApplicationForm() {
               minLength='30'
               required
             />
+          </S.Margin>
+          <S.Margin>
             <FormControl
               name='profession'
               type='text'
@@ -105,27 +119,31 @@ export default function ApplicationForm() {
               value={values.profession}
               required
             />
+          </S.Margin>
+          <S.Margin>
             <Form.Select
               name='country'
               value={values.country}
               onChange={handleChange}
               required
             >
-              <option value='' selected hidden>Escolha um país</option>
+              <option value='' selected hidden>
+                Escolha um país
+              </option>
               {countries.map((country, i) => (
                 <option key={i} value={country.name}>
                   {country.name}
                 </option>
               ))}
             </Form.Select>
-            <div>
-              <Link to='/trips/list'>
-                <button>Voltar</button>
-              </Link>
-              <button type={'submit'}>Enviar</button>
-            </div>
-          </form>
-        </Col>
+          </S.Margin>
+          <S.CentralizedDiv>
+            <Link to='/trips/list'>
+              <Buttons name='Voltar' variant='outline-primary'></Buttons>
+            </Link>
+            <Buttons type={'submit'} name='Enviar'></Buttons>
+          </S.CentralizedDiv>
+        </Form>
       </Row>
     </Container>
   )

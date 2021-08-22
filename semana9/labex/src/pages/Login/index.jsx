@@ -1,6 +1,14 @@
 import React, { useEffect } from 'react'
 import { useGoRoutes } from '../../hooks/useGoRoutes'
 import { usePost } from '../../services/usePost'
+import { Form, Card } from 'react-bootstrap'
+import Buttons from '../../components/Buttons/index'
+import { CentralizedDiv } from '../../styles/styles'
+import styled from 'styled-components'
+
+const GeneralContainer = styled.div`
+  margin: auto;
+`
 
 export default function Login() {
   const { goHome, goAdminHome } = useGoRoutes()
@@ -43,30 +51,47 @@ export default function Login() {
   }, [data, error])
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={submitLogin}>
-        <input
-          placeholder='E-mail'
-          name='inputEmail'
-          type='email'
-          onChange={handleInputChange}
-          value={values.inputEmail}
-          required
-        />
-        <input
-          type='password'
-          placeholder='Senha'
-          name='inputPass'
-          onChange={handleInputChange}
-          value={values.inputPass}
-          required
-        />
-        <button type='button' onClick={goHome}>
-          Voltar
-        </button>
-        <button type='submit'>Entrar</button>
-      </form>
-    </div>
+    <GeneralContainer>
+      <CentralizedDiv>
+        <h1>Login</h1>
+      </CentralizedDiv>
+      <Card body>
+        <Form style={{ width: '300px' }} onSubmit={submitLogin}>
+          <Form.Group>
+            <Form.Label>Endereço de E-mail</Form.Label>
+            <Form.Control
+              placeholder='Digite seu E-mail'
+              name='inputEmail'
+              type='email'
+              onChange={handleInputChange}
+              value={values.inputEmail}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Senha</Form.Label>
+
+            <Form.Control
+              type='password'
+              placeholder='Digite sua Senha'
+              name='inputPass'
+              onChange={handleInputChange}
+              value={values.inputPass}
+              required
+            />
+          </Form.Group>
+          <CentralizedDiv>
+            <Buttons
+              variant='outline-primary'
+              name='Voltar'
+              type='button'
+              onClick={goHome}
+            />
+            <Buttons name='Entrar' type='submit' />
+          </CentralizedDiv>
+        </Form>
+      </Card>
+    </GeneralContainer>
   )
 }

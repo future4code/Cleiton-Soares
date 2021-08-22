@@ -14,10 +14,10 @@ export default function Home() {
   return (
     <S.GeneralContainer>
       <h1>LabeX</h1>
-      <S.DoubleButtons>
-        <Buttons name='Ver viagens' onClick={goListTrips}/>
-        <Buttons variant="outline-primary" name='Área de admin' onClick={goPage}/>
-      </S.DoubleButtons>
+      <div>
+        <Buttons name='Ver viagens' onClick={goListTrips} />
+        <Buttons variant='outline-primary' name='Área de admin' onClick={goPage}/>
+      </div>
     </S.GeneralContainer>
   )
 }
