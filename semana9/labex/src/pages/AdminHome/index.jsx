@@ -5,6 +5,7 @@ import { useGet } from '../../services/useGet'
 import TripCard from './TripCard'
 import Buttons from '../../components/Buttons'
 import * as S from '../../styles/styles'
+import ReactLoading from 'react-loading'
 
 export default function AdminHome() {
   const { goTripDetails, goCreateTrip, goLogin, goHome } = useGoRoutes()
@@ -44,7 +45,16 @@ export default function AdminHome() {
           <Buttons variant='outline-danger' onClick={logout} name='Logout' />
         </S.CentralizedDiv>
 
-        {isLoading && <p>Carregando...</p>}
+        {isLoading && (
+          <S.CentralizedDiv>
+            <ReactLoading
+              type={'spin'}
+              color={'#0d6efd'}
+              height={50}
+              width={50}
+            />
+          </S.CentralizedDiv>
+        )}
         {error && <p>Algo deu errado. </p>}
 
         {!isLoading && tripList.length === 0 && (

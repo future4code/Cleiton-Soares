@@ -3,7 +3,8 @@ import InfoTrip from './InfoTrip'
 import { useGoRoutes } from '../../hooks/useGoRoutes'
 import { useGet } from '../../services/useGet'
 import Buttons from '../../components/Buttons'
-import * as G from '../../styles/styles'
+import * as S from '../../styles/styles'
+import ReactLoading from 'react-loading'
 
 export default function ListTrips() {
   const { goHome, goApplicationForm } = useGoRoutes()
@@ -20,19 +21,27 @@ export default function ListTrips() {
 
   return (
     <div>
-      <G.CentralizedDiv>
+      <S.CentralizedDiv>
         <h1>Lista de viagens</h1>
-      </G.CentralizedDiv>
-      <G.CentralizedDiv>
+      </S.CentralizedDiv>
+      <S.CentralizedDiv>
         <Buttons onClick={goHome} name='Voltar' />
         <Buttons
           onClick={goApplicationForm}
           name='Inscrever-se'
           variant='outline-primary'
         />
-      </G.CentralizedDiv>
+      </S.CentralizedDiv>
 
-      {isLoading && <p>Carregando...</p>}
+      {isLoading && (
+        <S.CentralizedDiv>
+            <ReactLoading
+              type={'spin'}
+              color={'#0d6efd'}
+              height={50}
+              width={50}
+            />
+          </S.CentralizedDiv>      )}
       {error && <p>Algo deu errado</p>}
 
       {!isLoading && tripList.length === 0 && <p>Nenhuma viagem encontrada.</p>}
