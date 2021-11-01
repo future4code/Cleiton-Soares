@@ -4,6 +4,4 @@ import { Utils } from './utils/Utils'
 
 const router: Router = express.Router()
 
-
-
 export default router

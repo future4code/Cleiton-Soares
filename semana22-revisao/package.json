@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev --quiet ./src/app.ts",
     "start": "tsc && node ./build/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "load":"node ./loader/loadfile.js"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +30,7 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.12",
     "mysql": "^2.18.1",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "xlsx": "^0.17.3"
   }
 }
