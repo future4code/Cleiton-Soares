@@ -1,7 +1,10 @@
 import * as crypto from 'crypto'
 import { Request, Response } from 'express'
 import { knex } from '../../connection'
-import { User as TypeUser } from '../../types'
+import { 
+  User as TypeUser,
+  Task as TypeTask
+} from '../../types'
 import { add, format } from 'date-fns'
 
 export class User {
@@ -10,7 +13,10 @@ export class User {
       const { name, nickname, email, password } = req.body
       const hash = crypto.createHash('sha256').update(password).digest('hex')
       const id = (
-        await knex('user').insert({ name, nickname, email, hash }, 'id')
+        await knex('user').insert(
+          { name, nickname, email, password: hash },
+          'id'
+        )
       )[0]
       res.status(201).json({ id })
     } catch (error: any) {
@@ -53,17 +59,19 @@ export class User {
     try {
       const { email, password } = req.body
       const hash = crypto.createHash('sha256').update(password).digest('hex')
-      const rows: TypeUser[] = await knex('user')
-        .where({ email, password: hash })
+      const rows: TypeUser[] = await knex('user').where({
+        email,
+        password: hash,
+      })
 
       if (!rows.length) throw 'Invalid credentials'
-      
+
       const user: TypeUser = rows[0]
       const token = crypto
         .createHash('sha256')
-        .update(`${user.id!}-${(new Date().getTime())}`)
+        .update(`${user.id!}-${new Date().getTime()}`)
         .digest('hex')
-      
+
       const expireDate = format(
         add(new Date(), { hours: 1 }),
         'yyyy-M-dd H:mm:ss'
@@ -73,10 +81,8 @@ export class User {
         .update({ token, token_expire: expireDate })
         .where({ id: user.id })
 
-      
       delete user['password']
-      res.json({...user, token, token_expire: expireDate})
-      
+      res.json({ ...user, token, token_expire: expireDate })
     } catch (error: any) {
       if (error.sqlMessage) error = error.sqlMessage
       res.status(errorCode).json({ error })
@@ -139,4 +145,40 @@ export class User {
       res.status(errorCode).json({ error })
     }
   }
+
+  static async getTasksByUserId(req: Request, res: Response) {
+    try {
+      const userId = req.params.userId
+
+      const user = await knex('user').where({ id: userId })
+      if (!user) throw 'Unfounded user'
+
+      const tasks: TypeTask[] = await knex('user_task')
+        .select('task.*')
+        .leftJoin('task', 'task.id', 'user_task.task_id')
+        .where('user_id', userId)
+
+      res.json(tasks)
+    } catch (error: any) {
+      if (error.sqlMessage) error = error.sqlMessage
+      res.status(500).json({ error })
+    }
+  }
+
+  static async getTasksByLoggedUser(req: Request, res: Response) {
+    try {
+      const user = res.locals.user
+  
+      const tasks: TypeTask[] = await knex('user_task')
+        .select('task.*')
+        .leftJoin('task', 'task.id', 'user_task.task_id')
+        .where('user_id', user.id)
+  
+      res.json(tasks)
+    } catch (error: any) {
+      if (error.sqlMessage) error = error.sqlMessage
+      res.status(500).json({ error })
+    }
+  }
+
 }
