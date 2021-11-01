@@ -1,0 +1,28 @@
+função utilizada para colocar todos os dados no banco.
+
+router.post('/', async (req, res) => {
+  try {
+    const pokemons = req.body
+    for (const pokemon of pokemons) {
+      await knex('pokemon_go').insert({
+        Id: Utils.generateId(),
+        Name: pokemon.Name,
+        Type1: pokemon.Type1,
+        Type2: pokemon.Type2,
+        Weather1: pokemon.Weather1,
+        Weather2: pokemon.Weather2,
+        STAT_TOTAL: pokemon.STAT_TOTAL,
+        ATK: pokemon.ATK,
+        DEF: pokemon.DEF,
+        STA: pokemon.STA,
+        Legendary: pokemon.Legendary,
+        NotGettable: pokemon.NotGettable,
+        External_id: pokemon.Row,
+      })
+    }
+
+    res.status(201).send()
+  } catch (error) {
+    res.status(400).send()
+  }
+})
