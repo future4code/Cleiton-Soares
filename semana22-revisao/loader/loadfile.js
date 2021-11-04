@@ -22,7 +22,6 @@ const workbook = XLSX.readFile(filename);
 const sheetName = (workbook.SheetNames)[0];
 let pokemons = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {defval: ""});
 
-pokemons = [pokemons[7], pokemons[8]];
 
 (async () => {
 
@@ -48,4 +47,3 @@ pokemons = [pokemons[7], pokemons[8]];
   process.exit(0)
 
 })();
-
